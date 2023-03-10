@@ -1,0 +1,19 @@
+* {
+    box-sizing: border-box;
+}
+
+.pad-left-4 {
+    padding-left: 8px;
+}
+
+.disp-flex {
+    display: flex;
+}
+
+.flex-grow-1 {
+    flex-grow: 1;
+}
+
+.border {
+    border: 1px solid;
+}
