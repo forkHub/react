@@ -1,8 +1,8 @@
 import React, { useContext } from "react";
 import { buat, getModulById } from "../../entity/Module";
-import { Context, Dispatch } from "../../app/Context";
 import { EHal, IData } from "../../app/Store";
-import { tambahModul } from "./ModuleReducer";
+import { editModul, tambahModul } from "./ModuleReducer";
+import { Context, Dispatch } from "../../app/Provider";
 
 export function Menu() {
     let data = useContext(Context);
@@ -26,7 +26,7 @@ function ModulPilih() {
         }}> Tambah </button>
 
         <button onClick={() => {
-            //TODO: edit
+            editModul(dispatch);
         }}> edit </button>
 
         <button onClick={() => {

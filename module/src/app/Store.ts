@@ -1,4 +1,4 @@
-import { IModulEntity } from "../entity/Module";
+import { cloneModule, IModulEntity } from "../entity/Module";
 
 export enum EHal {
     MODUL = 'modul',
@@ -11,7 +11,7 @@ export type IData = {
     modulAr: IModulEntity[],
 }
 
-const defData: IData = {
+let defData: IData = {
     hal: EHal.MODUL,
     idModulDipilih: 0,
     modulAr: [{
@@ -26,5 +26,26 @@ export function getDef(): IData {
 }
 
 export function clone(data: IData): IData {
-    return { ...data }
+    return {
+        ...data,
+        modulAr: data.modulAr.map((item) => { return cloneModule(item) })
+    }
 }
+
+export function simpan(data: IData): void {
+    window.localStorage.setItem('ha.modul', JSON.stringify(data));
+}
+
+export function load(): IData {
+    console.log('load');
+
+    try {
+        return JSON.parse(window.localStorage.getItem('ha.modul'));
+    }
+    catch (e) {
+        console.log(e);
+        return getDef();
+    }
+}
+
+defData = load();

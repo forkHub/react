@@ -35,6 +35,12 @@ export function handleModuleDitambah(data: IData, modulBaru: IModulEntity, induk
     return data2;
 }
 
+export function editModul(dispatch: React.Dispatch<IAction>) {
+    dispatch({
+        type: EAction.MODUL_EDIT_MULAI
+    });
+}
+
 export function handleModuleDiedit(data: IData): IData {
     let data2 = clone(data);
     data2.hal = EHal.MODUL_EDIT;

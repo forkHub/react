@@ -1,11 +1,13 @@
-import { getModulById, IModulEntity } from "../entity/Module";
+import { IModulEntity } from "../entity/Module";
 import { handleModuleDiedit, handleModuleDipilih, handleModuleDitambah } from "../pages/module/ModuleReducer";
-import { clone, EHal, IData } from "./Store";
+import { handleModuleSelesai } from "../pages/module_edit/ModulEditReducer";
+import { IData } from "./Store";
 
 export enum EAction {
-    MODUL_DIEDIT = 'modul/edit',
+    MODUL_EDIT_MULAI = 'modul/edit/mulai',
     MODUL_DIPILIH = 'modul/pilih',
-    MODUL_TAMBAH = 'modul/tambah'
+    MODUL_TAMBAH = 'modul/tambah',
+    MODUL_EDIT_SELESAI = 'modul/edit/selesai'
 }
 
 export type IAction = {
@@ -16,10 +18,15 @@ export type IAction = {
 }
 
 export function Reducer(data: IData, action: IAction): IData {
+    console.log('Reducer ');
+    console.log(action);
 
     switch (action.type) {
-        case EAction.MODUL_DIEDIT: {
+        case EAction.MODUL_EDIT_MULAI: {
             return handleModuleDiedit(data);
+        }
+        case EAction.MODUL_EDIT_SELESAI: {
+            return handleModuleSelesai(data);
         }
         case EAction.MODUL_DIPILIH: {
             return handleModuleDipilih(data, action.modul);
@@ -28,7 +35,8 @@ export function Reducer(data: IData, action: IAction): IData {
             return handleModuleDitambah(data, action.modul, action.induk);
         }
         default: {
-            throw Error();
+            console.log(action.type);
+            throw Error(action.type);
         }
     }
 }

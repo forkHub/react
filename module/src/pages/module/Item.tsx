@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
+import { Context, Dispatch } from "../../app/Provider";
 import { IData } from "../../app/Store";
-import { Context, Dispatch } from "../../app/Context";
 import { getModulById, IModulEntity, loadByIdIn } from "../../entity/Module";
 import { pilihModul } from "./ModuleReducer";
 

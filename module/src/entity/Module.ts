@@ -40,3 +40,7 @@ export function buat(nama: string): IModulEntity {
 
     return modulBaru;
 }
+
+export function cloneModule(modul: IModulEntity): IModulEntity {
+    return { ...modul }
+}

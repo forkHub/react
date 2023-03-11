@@ -1,9 +1,9 @@
 import React, { useContext } from 'react';
 import { Item } from './Item';
 import { Menu } from './Menu';
-import { Context } from '../../app/Context';
 import { IData } from '../../app/Store';
 import { getModulById } from '../../entity/Module';
+import { Context } from '../../app/Provider';
 
 export function ModulePage() {
     const data: IData = useContext(Context);
