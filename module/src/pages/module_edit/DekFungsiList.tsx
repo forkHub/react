@@ -3,9 +3,9 @@ import React, { useContext, useEffect, useState } from 'react';
 import { DekFungsi } from "./DekFungsi";
 import { tambahFungsi } from "./ModulEditReducer";
 import { Dispatch } from "../../app/Provider";
-import { IAction } from "../../app/Reducer";
+import { TAction } from "../../app/Reducer";
 
-function handleTambahKlik(dispatch: React.Dispatch<IAction>) {
+function handleTambahKlik(dispatch: React.Dispatch<TAction>) {
     tambahFungsi(dispatch)
 }
 

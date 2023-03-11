@@ -1,11 +1,6 @@
 import { clone as cloneFungsi, TDekFungsi } from "../entity/DekFungsi";
 import { buatModule, cloneModule, IModulEntity } from "../entity/Module";
-
-export enum EHal {
-    MODUL = 'modul',
-    MODUL_EDIT = 'modul_edit',
-    FUNGSI_EDIT = 'fungsi_edit'
-}
+import { EHal } from "./enum";
 
 export type TData = {
     hal: EHal,

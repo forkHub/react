@@ -1,17 +1,10 @@
 import React, { useContext, useEffect, useState } from 'react';
+import { EHal } from '../../app/enum';
 import { Context, Dispatch } from '../../app/Provider';
+import { Varlist } from '../../comp/VarList';
 import { loadByIdIn, TDekFungsi } from '../../entity/DekFungsi';
 import { DekFungList } from './DekFungsiList';
 import { editModulSelesai } from './ModulEditReducer';
-
-function VarList() {
-    return <>
-        <div>Variable:</div>
-        <div>
-
-        </div>
-    </>
-}
 
 async function loadFungsi(id: number[], data: TDekFungsi[]): Promise<TDekFungsi[]> {
     return loadByIdIn(id, data);
@@ -34,7 +27,7 @@ export function ModulEditPage() {
     return <>
         <div>modul: {data.modulAktif.nama} [ {data.modulAktif.id} ]</div>
         <div>
-            <VarList />
+            <Varlist list={EHal.MODUL_EDIT} />
         </div>
         <hr />
         <div>

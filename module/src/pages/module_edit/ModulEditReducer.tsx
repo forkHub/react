@@ -1,10 +1,10 @@
 import React from "react";
-import { EAction, IAction } from "../../app/Reducer";
-import { TData, clone, EHal } from "../../app/Store";
+import { EAction, EHal } from "../../app/enum";
+import { TAction, } from "../../app/Reducer";
+import { TData, clone } from "../../app/Store";
 import { buat, TDekFungsi } from "../../entity/DekFungsi";
-import { getModulById } from "../../entity/Module";
 
-export function editModulSelesai(dispatch: React.Dispatch<IAction>) {
+export function editModulSelesai(dispatch: React.Dispatch<TAction>) {
     console.log('edit module selesai:');
 
     dispatch({
@@ -20,7 +20,7 @@ function handleEditModuleSelesai(data: TData): TData {
     return data2;
 }
 
-export function tambahFungsi(dispatch: React.Dispatch<IAction>) {
+export function tambahFungsi(dispatch: React.Dispatch<TAction>) {
     console.log('tambah fungsi');
 
     dispatch({
@@ -39,7 +39,7 @@ function handleTambahFungsi(data: TData, fungsi: TDekFungsi): TData {
     return data2;
 }
 
-export function EditModuleReducer(data: TData, action: IAction): TData {
+export function EditModuleReducer(data: TData, action: TAction): TData {
     switch (action.type) {
         case EAction.MODUL_EDIT_SELESAI: {
             return handleEditModuleSelesai(data);

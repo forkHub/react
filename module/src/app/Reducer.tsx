@@ -2,20 +2,10 @@ import { TDekFungsi } from "../entity/DekFungsi";
 import { IModulEntity } from "../entity/Module";
 import { ModuleReducer } from "../pages/module/ModuleReducer";
 import { EditModuleReducer } from "../pages/module_edit/ModulEditReducer";
+import { EAction, EHal } from "./enum";
 import { TData } from "./Store";
 
-export enum EAction {
-    MODUL_EDIT = 'modul/edit',
-    MODUL_PILIH = 'modul/pilih',
-    MODUL_TAMBAH = 'modul/tambah',
-
-    MODUL_EDIT_SELESAI = 'modul_edit/selesai',
-    MODUL_EDIT_TAMBAH_FUNGSI = 'modul_edit/tambah_fungsi',
-
-    SAMPLE_ADD = 'sample/add'
-}
-
-export type IAction = {
+export type TAction = {
     type: EAction,
     id?: number,
     modul?: IModulEntity,
@@ -30,14 +20,14 @@ function getTag(str: string): string {
     return str.slice(0, str.indexOf('/'));
 }
 
-export function Reducer(data: TData, action: IAction): TData {
+export function Reducer(data: TData, action: TAction): TData {
     let tag: string = getTag(action.type);
 
     switch (tag) {
-        case "modul": {
+        case EHal.MODUL: {
             return ModuleReducer(data, action);
         }
-        case "modul_edit": {
+        case EHal.MODUL_EDIT: {
             return EditModuleReducer(data, action);
             return data;
         }

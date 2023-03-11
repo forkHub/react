@@ -18,7 +18,7 @@ function handleSampleAdd(data: TData, sampleParam: any): TData {
     return data2;
 }
 
-export function SampleReducer(data: TData, action: TAction): TData {
+export function EditFungsiReducer(data: TData, action: TAction): TData {
     switch (action.type) {
         case EAction.MODUL_SAMPLE: {
             return handleSampleAdd(data, action.sample);

@@ -1,8 +1,9 @@
 import React, { useContext } from "react";
 import { buatModule, getModulById } from "../../entity/Module";
-import { EHal, TData } from "../../app/Store";
+import { TData } from "../../app/Store";
 import { editModul, tambahModul } from "./ModuleReducer";
 import { Context, Dispatch } from "../../app/Provider";
+import { EHal } from "../../app/enum";
 
 export function Menu() {
     let data = useContext(Context);
@@ -13,6 +14,11 @@ export function Menu() {
         <button onClick={() => {
             console.log('klik load');
         }}> load </button>
+
+        <button onClick={() => {
+
+        }}> sample </button>
+
     </>
 }
 
