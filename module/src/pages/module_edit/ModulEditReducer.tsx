@@ -2,8 +2,9 @@ import React from "react";
 import { EAction, EHal } from "../../app/enum";
 import { TAction, } from "../../app/Reducer";
 import { TData, clone } from "../../app/Store";
-import { getModulById } from "../../dao/ModulDao";
-import { buat, TDekFungsi } from "../../entity/DekFungsi";
+import { addFungsi, buatFungsi, simpanFungsi } from "../../dao/FungsiDao";
+import { getModulById, simpanModul } from "../../dao/ModulDao";
+import { TDekFungsi } from "../../entity/DekFungsi";
 
 export function editModulSelesai(dispatch: React.Dispatch<TAction>) {
     console.log('edit module selesai:');
@@ -26,16 +27,17 @@ export function tambahFungsi(dispatch: React.Dispatch<TAction>) {
 
     dispatch({
         type: EAction.MODUL_EDIT_TAMBAH_FUNGSI,
-        fungsi: buat('fungsi')
+        fungsi: buatFungsi('fungsi')
     });
 }
 
 function handleTambahFungsi(data: TData, fungsi: TDekFungsi): TData {
-
     let data2: TData = clone(data);
 
-    data2.dekFungsiAr.push(fungsi);
-    getModulById(data.idModulDipilih).fungsi.push(fungsi.id);
+    addFungsi(fungsi);
+    getModulById(data.idModulAktif).fungsi.push(fungsi.id);
+    simpanModul();
+    simpanFungsi();
 
     return data2;
 }

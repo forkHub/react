@@ -9,7 +9,7 @@ import { IModulEntity } from '../../entity/Module';
 export function ModulePage() {
     const data: TData = useContext(Context);
     let modul: IModulEntity = modulDao.getModulById(0);
-    let modulDipilih: IModulEntity = modulDao.getModulById(data.idModulDipilih);
+    let modulDipilih: IModulEntity = modulDao.getModulById(data.idModulAktif);
 
     return <>
         <Item

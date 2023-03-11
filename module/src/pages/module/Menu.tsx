@@ -28,7 +28,7 @@ function ModulPilih() {
 
     return <>
         <button onClick={() => {
-            tambahModul(dispatch, buatModule('test'), getModulById(getModulById(data.idModulDipilih).id));
+            tambahModul(dispatch, buatModule('test'), getModulById(getModulById(data.idModulAktif).id));
         }}> Tambah </button>
 
         <button onClick={() => {

@@ -36,7 +36,7 @@ export function Item({ modul }: { modul: IModulEntity }) {
     return (
         <div>
             <div
-                className={"disp-flex " + (data.idModulDipilih == modul.id ? "border" : "")}>
+                className={"disp-flex " + (data.idModulAktif == modul.id ? "border" : "")}>
                 {modul.nama}
                 <button
                     type="button"

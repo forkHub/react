@@ -1,5 +1,5 @@
 import { TDekFungsi } from "../../entity/DekFungsi";
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext } from 'react';
 import { DekFungsi } from "./DekFungsi";
 import { tambahFungsi } from "./ModulEditReducer";
 import { Dispatch } from "../../app/Provider";
@@ -17,7 +17,7 @@ export function DekFungList({ list }: { list: TDekFungsi[] }) {
     });
 
     return <>
-        <div>Fungsi2:</div>
+        <div>Fungsi:</div>
         <div>
             {items}
         </div>

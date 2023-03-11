@@ -1,15 +1,6 @@
 import { IModulEntity } from "../entity/Module";
 import { id } from "../util/Id";
 
-let daftar: IModulEntity[] = [{
-    id: 0,
-    nama: 'root',
-    fungsi: [],
-    anak: []
-}];
-
-const table: string = 'ha.modul.modul';
-
 export function simpanModul(): void {
     window.localStorage.setItem(table, JSON.stringify(daftar));
 }
@@ -25,18 +16,18 @@ export function load(): void {
             daftar = JSON.parse(str);
         }
         else {
-            daftar.push(def());
+            daftar.push(buatModuleDefault());
             simpanModul();
         }
     }
     catch (e) {
-        daftar.push(def());
+        daftar.push(buatModuleDefault());
         simpanModul();
         console.log(e);
     }
 }
 
-function def(): IModulEntity {
+function buatModuleDefault(): IModulEntity {
     return {
         id: 0,
         nama: 'root',
@@ -84,5 +75,12 @@ export function loadModulByIdIn(ids: number[]): IModulEntity[] {
     });
 }
 
+const table: string = 'ha.modul.modul';
 
+let daftar: IModulEntity[] = [{
+    id: 0,
+    nama: 'root',
+    fungsi: [],
+    anak: []
+}];
 load();
