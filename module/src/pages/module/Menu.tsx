@@ -1,8 +1,8 @@
 import React, { useContext } from "react";
-import { editModul, tambahModul } from "./ModuleReducer";
+import { editModul, tambahModul as tambahModulDispatch } from "./ModuleReducer";
 import { Context, Dispatch } from "../../app/Provider";
 import { EHal } from "../../app/enum";
-import { buatModule, getModulById } from "../../dao/ModulDao";
+import { addModule, buatModule, simpanModul } from "../../dao/ModulDao";
 import { IModulEntity } from "../../entity/Module";
 
 export function Menu({ parentModul }: { parentModul: IModulEntity }) {
@@ -22,12 +22,24 @@ export function Menu({ parentModul }: { parentModul: IModulEntity }) {
     </>
 }
 
+async function tambahModul(modul: IModulEntity, induk: IModulEntity) {
+    await (addModule(modul));
+    induk.anak.push(modul.id);
+    simpanModul();
+}
+
 function ModulPilih({ modul }: { modul: IModulEntity }) {
     let dispatch = useContext(Dispatch);
 
     return <>
         <button onClick={() => {
-            tambahModul(dispatch, buatModule('test'), modul);
+            tambahModul(buatModule('test'), modul)
+                .then(() => {
+                    tambahModulDispatch(dispatch);
+                })
+                .catch((e) => {
+                    console.error(e);
+                });
         }}> Tambah </button>
 
         <button onClick={() => {

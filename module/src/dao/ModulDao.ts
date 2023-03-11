@@ -46,7 +46,7 @@ export async function getModulById(id: number): Promise<IModulEntity> {
     return hasil;
 }
 
-export function addModule(modul: IModulEntity): void {
+export async function addModule(modul: IModulEntity): Promise<void> {
     daftar.push(modul);
     simpanModul();
 }

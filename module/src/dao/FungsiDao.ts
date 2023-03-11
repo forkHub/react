@@ -1,5 +1,6 @@
 import { TDekFungsi } from "../entity/DekFungsi";
 import { id } from "../util/Id";
+import { getModulById } from "./ModulDao";
 
 export function simpanFungsi(): void {
     window.localStorage.setItem(table, JSON.stringify(daftar));
@@ -62,6 +63,12 @@ export function buatFungsi(nama: string): TDekFungsi {
 }
 
 export function loadFungsiByIdIn(ids: number[]): TDekFungsi[] {
+    // let hasil: TDekFungsi[] = [];
+
+    // for (let i: number = 0; i < ids.length; i++) {
+    //     hasil.push(await getModulById(ids[i]));
+    // }
+
     if (ids.length == 0) return [];
 
     return daftar.filter((item: TDekFungsi) => {
