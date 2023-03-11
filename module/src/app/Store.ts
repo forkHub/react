@@ -1,4 +1,3 @@
-import { TDekFungsi } from "../entity/DekFungsi";
 import { EHal } from "./enum";
 
 export type TData = {
@@ -6,8 +5,6 @@ export type TData = {
     id: number;
     idModulAktif: number;
     idFungsiAktif: number;
-
-    // fungsi: TDekFungsi,
 }
 
 export function getDef(): TData {
@@ -25,5 +22,4 @@ let defData: TData = {
     id: 0,
     idModulAktif: 0,
     idFungsiAktif: 0,
-    // fungsi: null,
 }

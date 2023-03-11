@@ -14,7 +14,6 @@ export function pilihModul(dispatch: React.Dispatch<TAction>, modul: IModulEntit
 
 function handleModuleDipilih(data: TData, modul: IModulEntity): TData {
     let data2 = clone(data);
-    // data2.modulAktif = getModulById(modul.id);
     data2.idModulAktif = modul.id;
 
     return data2;
