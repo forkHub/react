@@ -1,15 +1,15 @@
 import React, { useContext } from "react";
-import { MainDispatch } from "../main/MainContext";
+import { buat, getModulById } from "../../entity/Module";
+import { MainContext, MainDispatch } from "../main/MainContext";
 import { EMainAction } from "../main/MainReducer";
-import { ModuleContext, ModuleDispatch } from "./ModuleContex";
-import { Action } from "./ModuleReducer";
-import * as DataSource from './ModuleStore';
+import { EHal, IMainData } from "../main/MainStore";
+import { tambahModul } from "./ModuleReducer";
 
 export function Menu() {
-    let data = useContext(ModuleContext);
+    let data = useContext(MainContext);
 
     return <>
-        {data.state == DataSource.editState.modulPilih && <ModulPilih />}
+        {data.hal == EHal.MODUL && <ModulPilih />}
 
         <button onClick={() => {
             console.log('klik load');
@@ -18,27 +18,20 @@ export function Menu() {
 }
 
 function ModulPilih() {
-    let modulDispatch = useContext(ModuleDispatch);
-    let appDispatch = useContext(MainDispatch);
+    let data: IMainData = useContext(MainContext);
+    let dispatch = useContext(MainDispatch);
 
     return <>
         <button onClick={() => {
-            modulDispatch({
-                type: Action.TAMBAH,
-                modul: DataSource.buat("test " + Date.now()),
-                induk: 0
-            })
+            tambahModul(dispatch, buat('test'), getModulById(data.idModulDipilih, data));
         }}> Tambah </button>
 
         <button onClick={() => {
-            appDispatch({
-                type: EMainAction.MODUL_DIEDIT,
-
-            });
+            //TODO: edit
         }}> edit </button>
 
         <button onClick={() => {
-            console.log('klik');
+            //TODO: hapus
         }}> hapus </button>
 
     </>

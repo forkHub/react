@@ -1,4 +1,4 @@
-import { editState } from "./ModuleStore";
+import { IModulEntity } from "../../entity/Module"
 
 export enum EEntityType {
     MODUL = 'modul',
@@ -6,34 +6,8 @@ export enum EEntityType {
     VAR = 'var'
 }
 
-export interface IModuleData {
-    id: number,
-    dipilih: number,
-    state: editState,
-
-    modulAr: IModulEntity[],
-}
-
-export interface IModulEntity {
-    id: number,
-    nama: string,
-    anak: number[],
-    type: EEntityType
-}
-
-export interface IModulDataProp {
-    data: IModulEntity[]
-}
-
-export interface IModulprop {
-    id: number,
-    modul?: IModulEntity;
-}
-
-export interface IAction {
+export interface IModulAction {
     type: string,
     modul?: IModulEntity,
-    induk?: number
-    id?: number
-    diDipilih?: number
+    induk?: IModulEntity
 }

@@ -1,29 +1,34 @@
+import { getModulById, IModulEntity } from "../../entity/Module";
+import { handleModuleDiedit, handleModuleDipilih, handleModuleDitambah } from "../module/ModuleReducer";
 import { clone, EHal, IMainData } from "./MainStore";
 
 export enum EMainAction {
-    MODUL_DIEDIT = 'modul di edit'
+    MODUL_DIEDIT = 'modul/edit',
+    MODUL_DIPILIH = 'modul/pilih',
+    MODUL_TAMBAH = 'modul/tambah'
 }
 
 export interface IMainAction {
-    type: EMainAction
+    type: EMainAction,
+    id?: number,
+    modul?: IModulEntity,
+    induk?: IModulEntity
 }
 
 export function MainReducer(data: IMainData, action: IMainAction): IMainData {
+
     switch (action.type) {
         case EMainAction.MODUL_DIEDIT: {
-
-            console.log('modul diedit');
-
-            let data2 = clone(data);
-            data2.hal = EHal.MODUL_EDIT;
-
-            return data2;
-
-            break;
+            return handleModuleDiedit(data);
+        }
+        case EMainAction.MODUL_DIPILIH: {
+            return handleModuleDipilih(data, action.modul);
+        }
+        case EMainAction.MODUL_TAMBAH: {
+            return handleModuleDitambah(data, action.modul, action.induk);
         }
         default: {
             throw Error();
         }
     }
-    return data;
 }

@@ -1,31 +1,29 @@
 import React, { useContext } from 'react';
 import { Item } from './Item';
-import { ModuleContext } from './ModuleContex';
 import { Menu } from './Menu';
-import { ModuleProvider } from './ModuleProvider';
-import { getModulById } from './ModuleStore';
-import { IModuleData } from './ModuleInterface';
+import { MainContext } from '../main/MainContext';
+import { IMainData } from '../main/MainStore';
+import { getModulById } from '../../entity/Module';
 
 export function ModuleApp() {
+
     return <>
-        <ModuleProvider>
-            <Content />
-        </ModuleProvider>
+        <Content />
     </>
 }
 
 function Content() {
-    const dataProp: IModuleData = useContext(ModuleContext);
+    const data: IMainData = useContext(MainContext);
 
     return <>
         <Item
-            key={dataProp.modulAr[0].id}
-            id={dataProp.modulAr[0].id}
+            key={data.modulAr[0].id}
+            id={data.modulAr[0].id}
         ></Item>
         <hr />
 
         <div>
-            Selected modul: {getModulById(dataProp.dipilih, dataProp).nama} - modul dipilih {dataProp.dipilih}
+            Selected modul: {getModulById(data.idModulDipilih, data).nama} - modul dipilih {data.idModulDipilih}
         </div>
 
         <Menu />
