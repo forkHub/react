@@ -5,6 +5,7 @@ import { EditModuleReducer } from "../pages/module_edit/ModulEditReducer";
 import { EAction, EHal } from "./enum";
 import { TData } from "./Store";
 
+//TODO: payload
 export type TAction = {
     type: EAction,
     id?: number,

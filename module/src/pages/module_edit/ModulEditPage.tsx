@@ -9,20 +9,29 @@ import { IModulEntity } from '../../entity/Module';
 import { DekFungList } from './DekFungsiList';
 import { editModulSelesai } from './ModulEditReducer';
 
+async function load(idModul: number): Promise<[TDekFungsi[], IModulEntity]> {
+    let modul: IModulEntity = await loadModule(idModul);
+    return [await loadFungsi(modul.fungsi), await loadModule(idModul)];
+}
+
 async function loadFungsi(id: number[]): Promise<TDekFungsi[]> {
     return loadFungsiByIdIn(id);
+}
+
+async function loadModule(id: number): Promise<IModulEntity> {
+    return await getModulById(id);
 }
 
 export function ModulEditPage() {
     const data = useContext(Context);
     const dispatch = useContext(Dispatch);
-    const [fungsi, setFungsi]: [TDekFungsi[], any] = useState([]);
-
-    const modul: IModulEntity = getModulById(data.idModulAktif);
+    const [fungsi, setFungsi]: [TDekFungsi[], any] = useState(null);
+    const [modul, setModul]: [IModulEntity, any] = useState(null);
 
     useEffect(() => {
-        loadFungsi(modul.fungsi).then((item: TDekFungsi[]) => {
-            setFungsi(item);
+        load(data.idModulAktif).then(([fungsi, modul]: [TDekFungsi[], IModulEntity]) => {
+            setFungsi(fungsi);
+            setModul(modul);
         }).catch((e) => {
             console.log(e);
             throw Error(e);
@@ -30,21 +39,25 @@ export function ModulEditPage() {
     }, [data])
 
     return <>
-        <div>modul: {modul.nama} [ {modul.id} ]</div>
-        <div>
-            <Varlist list={EHal.MODUL_EDIT} />
-        </div>
-        <hr />
-        <div>
-            <DekFungList list={fungsi} />
-        </div>
-        <hr />
-        <div>
-            <button
-                onClick={() => {
-                    editModulSelesai(dispatch);
-                }}
-            >OK23</button>
-        </div>
+        {
+            modul && fungsi && <>
+                <div>modul: {modul.nama} [ {modul.id} ]</div>
+                <div>
+                    <Varlist list={EHal.MODUL_EDIT} />
+                </div>
+                <hr />
+                <div>
+                    <DekFungList list={fungsi} modul={modul} />
+                </div>
+                <hr />
+                <div>
+                    <button
+                        onClick={() => {
+                            editModulSelesai(dispatch);
+                        }}
+                    >OK23</button>
+                </div>
+            </>
+        }
     </>
 }

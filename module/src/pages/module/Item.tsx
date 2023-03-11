@@ -6,7 +6,7 @@ import { IModulEntity } from "../../entity/Module";
 import { pilihModul } from "./ModuleReducer";
 
 async function loadAnak(modul: IModulEntity, mainData: TData): Promise<[IModulEntity[]]> {
-    let anak: IModulEntity[] = loadModulByIdIn(modul.anak);
+    let anak: IModulEntity[] = await loadModulByIdIn(modul.anak);
 
     return [anak];
 }

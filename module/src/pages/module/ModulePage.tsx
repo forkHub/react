@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Item } from './Item';
 import { Menu } from './Menu';
 import { TData } from '../../app/Store';
@@ -8,19 +8,37 @@ import { IModulEntity } from '../../entity/Module';
 
 export function ModulePage() {
     const data: TData = useContext(Context);
-    let modul: IModulEntity = modulDao.getModulById(0);
-    let modulDipilih: IModulEntity = modulDao.getModulById(data.idModulAktif);
+    const [modul, setModul]: [IModulEntity, any] = useState(null);
+    const [modulDipilih, setModulDipilih]: [IModulEntity, any] = useState(null);
+
+    useEffect(() => {
+        console.log('use effect');
+        console.log(data);
+        modulDao.loadModulByIdIn([0, data.idModulAktif])
+            .then(([modul, modulDipilih]) => {
+                setModul(modul);
+                setModulDipilih(modulDipilih);
+                console.log(modul);
+                console.log(modulDipilih);
+            })
+            .catch((e) => {
+                console.error(e);
+                throw Error('');
+            });
+    }, [data]);
 
     return <>
-        <Item
-            key={modul.id}
-            modul={modul}></Item>
+        {modul && modulDipilih && <>
+            <Item
+                key={modul.id}
+                modul={modul}></Item>
 
-        <div>
-            Selected modul: {modulDipilih.nama} + {modulDipilih.id}
-        </div>
+            <div>
+                Selected modul: {modulDipilih.nama} + {modulDipilih.id}
+            </div>
 
-        <Menu />
+            <Menu parentModul={modulDipilih} />
+        </>}
     </>
 
 }

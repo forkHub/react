@@ -4,3 +4,4 @@ export type IModulEntity = {
     anak: number[],
     fungsi: number[]
 }
+

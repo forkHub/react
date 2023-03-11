@@ -3,8 +3,9 @@ import { EAction, EHal } from "../../app/enum";
 import { TAction, } from "../../app/Reducer";
 import { TData, clone } from "../../app/Store";
 import { addFungsi, buatFungsi, simpanFungsi } from "../../dao/FungsiDao";
-import { getModulById, simpanModul } from "../../dao/ModulDao";
+import { simpanModul } from "../../dao/ModulDao";
 import { TDekFungsi } from "../../entity/DekFungsi";
+import { IModulEntity } from "../../entity/Module";
 
 export function editModulSelesai(dispatch: React.Dispatch<TAction>) {
     console.log('edit module selesai:');
@@ -22,20 +23,21 @@ function handleEditModuleSelesai(data: TData): TData {
     return data2;
 }
 
-export function tambahFungsi(dispatch: React.Dispatch<TAction>) {
+export function tambahFungsi(dispatch: React.Dispatch<TAction>, induk: IModulEntity) {
     console.log('tambah fungsi');
 
     dispatch({
         type: EAction.MODUL_EDIT_TAMBAH_FUNGSI,
-        fungsi: buatFungsi('fungsi')
+        fungsi: buatFungsi('fungsi'),
+        modul: induk
     });
 }
 
-function handleTambahFungsi(data: TData, fungsi: TDekFungsi): TData {
+function handleTambahFungsi(data: TData, fungsi: TDekFungsi, induk: IModulEntity): TData {
     let data2: TData = clone(data);
 
     addFungsi(fungsi);
-    getModulById(data.idModulAktif).fungsi.push(fungsi.id);
+    induk.fungsi.push(fungsi.id);
     simpanModul();
     simpanFungsi();
 
@@ -48,7 +50,7 @@ export function EditModuleReducer(data: TData, action: TAction): TData {
             return handleEditModuleSelesai(data);
         }
         case EAction.MODUL_EDIT_TAMBAH_FUNGSI: {
-            return handleTambahFungsi(data, action.fungsi);
+            return handleTambahFungsi(data, action.fungsi, action.modul);
         }
         default: {
             console.log(action.type);

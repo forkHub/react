@@ -45,6 +45,7 @@ export function getFungsiById(id: number): TDekFungsi {
     return hasil;
 }
 
+//TODO: async
 export function addFungsi(fungsi: TDekFungsi): void {
     daftar.push(fungsi);
     simpanFungsi();

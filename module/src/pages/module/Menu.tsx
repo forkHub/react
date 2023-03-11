@@ -1,15 +1,15 @@
 import React, { useContext } from "react";
-import { TData } from "../../app/Store";
 import { editModul, tambahModul } from "./ModuleReducer";
 import { Context, Dispatch } from "../../app/Provider";
 import { EHal } from "../../app/enum";
 import { buatModule, getModulById } from "../../dao/ModulDao";
+import { IModulEntity } from "../../entity/Module";
 
-export function Menu() {
+export function Menu({ parentModul }: { parentModul: IModulEntity }) {
     let data = useContext(Context);
 
     return <>
-        {data.hal == EHal.MODUL && <ModulPilih />}
+        {data.hal == EHal.MODUL && <ModulPilih modul={parentModul} />}
 
         <button onClick={() => {
             console.log('klik load');
@@ -22,13 +22,12 @@ export function Menu() {
     </>
 }
 
-function ModulPilih() {
-    let data: TData = useContext(Context);
+function ModulPilih({ modul }: { modul: IModulEntity }) {
     let dispatch = useContext(Dispatch);
 
     return <>
         <button onClick={() => {
-            tambahModul(dispatch, buatModule('test'), getModulById(getModulById(data.idModulAktif).id));
+            tambahModul(dispatch, buatModule('test'), modul);
         }}> Tambah </button>
 
         <button onClick={() => {

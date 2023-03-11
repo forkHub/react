@@ -5,7 +5,7 @@ export function simpanModul(): void {
     window.localStorage.setItem(table, JSON.stringify(daftar));
 }
 
-export function load(): void {
+function load(): void {
     while (daftar.length > 0) {
         daftar.pop();
     }
@@ -36,7 +36,7 @@ function buatModuleDefault(): IModulEntity {
     }
 }
 
-export function getModulById(id: number): IModulEntity {
+export async function getModulById(id: number): Promise<IModulEntity> {
     let hasil: IModulEntity = daftar.find((item) => {
         return item.id === id;
     })
@@ -62,17 +62,15 @@ export function buatModule(nama: string): IModulEntity {
     return modulBaru;
 }
 
-export function loadModulByIdIn(ids: number[]): IModulEntity[] {
+export async function loadModulByIdIn(ids: number[]): Promise<IModulEntity[]> {
+    let hasil: IModulEntity[] = [];
+
     if (ids.length == 0) return [];
+    for (let i: number = 0; i < ids.length; i++) {
+        hasil.push(await getModulById(ids[i]));
+    }
 
-    return daftar.filter((item: IModulEntity) => {
-        let ok: boolean = false;
-        ids.forEach((id: number) => {
-            if (item.id == id) ok = true;
-        });
-
-        return ok;
-    });
+    return hasil;
 }
 
 const table: string = 'ha.modul.modul';

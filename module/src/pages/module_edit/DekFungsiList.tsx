@@ -4,12 +4,13 @@ import { DekFungsi } from "./DekFungsi";
 import { tambahFungsi } from "./ModulEditReducer";
 import { Dispatch } from "../../app/Provider";
 import { TAction } from "../../app/Reducer";
+import { IModulEntity } from "../../entity/Module";
 
-function handleTambahKlik(dispatch: React.Dispatch<TAction>) {
-    tambahFungsi(dispatch)
+function handleTambahKlik(dispatch: React.Dispatch<TAction>, induk: IModulEntity) {
+    tambahFungsi(dispatch, induk)
 }
 
-export function DekFungList({ list }: { list: TDekFungsi[] }) {
+export function DekFungList({ list, modul }: { list: TDekFungsi[], modul: IModulEntity }) {
     const dispatch = useContext(Dispatch);
 
     const items: JSX.Element[] = list.map((item) => {
@@ -23,7 +24,7 @@ export function DekFungList({ list }: { list: TDekFungsi[] }) {
         </div>
         <div>
             <button
-                onClick={() => { handleTambahKlik(dispatch) }}
+                onClick={() => { handleTambahKlik(dispatch, modul) }}
             >tambah</button>
         </div>
     </>
