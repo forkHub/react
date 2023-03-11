@@ -3,7 +3,7 @@ import { useContext } from "react";
 import { EHal, IData, simpan } from "../../app/Store";
 import { ModulePage } from '../module/ModulePage';
 import { Context } from '../../app/Provider';
-import { ModulEditPage } from '../module_edit/ModulEditPAge';
+import { ModulEditPage } from '../module_edit/ModulEditPage';
 
 export function MainPage() {
     const data: IData = useContext(Context);

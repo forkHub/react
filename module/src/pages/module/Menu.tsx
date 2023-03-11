@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { buat, getModulById } from "../../entity/Module";
+import { buatModule, getModulById } from "../../entity/Module";
 import { EHal, IData } from "../../app/Store";
 import { editModul, tambahModul } from "./ModuleReducer";
 import { Context, Dispatch } from "../../app/Provider";
@@ -22,7 +22,7 @@ function ModulPilih() {
 
     return <>
         <button onClick={() => {
-            tambahModul(dispatch, buat('test'), data.modulAktif);
+            tambahModul(dispatch, buatModule('test'), data.modulAktif);
         }}> Tambah </button>
 
         <button onClick={() => {

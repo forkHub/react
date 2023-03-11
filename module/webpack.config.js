@@ -9,7 +9,9 @@ module.exports = {
         path: buildPath,
         filename: "app[name].bundle.js",
         clean: true,
+
     },
+    cache: false,
     resolve: {
         extensions: [".ts", ".tsx", ".js", ".json", ".css"],
     },

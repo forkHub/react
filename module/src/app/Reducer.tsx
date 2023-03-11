@@ -1,42 +1,43 @@
+import { TDekFungsi } from "../entity/DekFungsi";
 import { IModulEntity } from "../entity/Module";
-import { handleModuleDiedit, handleModuleDipilih, handleModuleDitambah } from "../pages/module/ModuleReducer";
-import { handleModuleSelesai } from "../pages/module_edit/ModulEditReducer";
+import { ModuleReducer } from "../pages/module/ModuleReducer";
+import { EditModuleReducer } from "../pages/module_edit/ModulEditReducer";
 import { IData } from "./Store";
 
 export enum EAction {
-    MODUL_EDIT_MULAI = 'modul/edit/mulai',
-    MODUL_DIPILIH = 'modul/pilih',
+    MODUL_EDIT = 'modul/edit',
+    MODUL_PILIH = 'modul/pilih',
     MODUL_TAMBAH = 'modul/tambah',
-    MODUL_EDIT_SELESAI = 'modul/edit/selesai'
+
+    MODUL_EDIT_SELESAI = 'modul_edit/selesai',
+    MODUL_EDIT_TAMBAH_FUNGSI = 'modul_edit/tambah_fungsi',
 }
 
 export type IAction = {
     type: EAction,
     id?: number,
     modul?: IModulEntity,
-    induk?: IModulEntity
+    induk?: IModulEntity,
+    fungsi?: TDekFungsi,
+}
+
+function getTag(str: string): string {
+    return str.slice(0, str.indexOf('/'));
 }
 
 export function Reducer(data: IData, action: IAction): IData {
-    console.log('Reducer ');
-    console.log(action);
+    let tag: string = getTag(action.type);
 
-    switch (action.type) {
-        case EAction.MODUL_EDIT_MULAI: {
-            return handleModuleDiedit(data);
+    switch (tag) {
+        case "modul": {
+            return ModuleReducer(data, action);
         }
-        case EAction.MODUL_EDIT_SELESAI: {
-            return handleModuleSelesai(data);
-        }
-        case EAction.MODUL_DIPILIH: {
-            return handleModuleDipilih(data, action.modul);
-        }
-        case EAction.MODUL_TAMBAH: {
-            return handleModuleDitambah(data, action.modul, action.induk);
+        case "modul_edit": {
+            return EditModuleReducer(data, action);
+            return data;
         }
         default: {
-            console.log(action.type);
-            throw Error(action.type);
+            throw Error('tag is not defined ' + tag + '/type ' + action.type);
         }
     }
 }

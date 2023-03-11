@@ -1,4 +1,5 @@
-import { cloneModule, IModulEntity } from "../entity/Module";
+import { TDekFungsi } from "../entity/DekFungsi";
+import { buatModule, cloneModule, IModulEntity } from "../entity/Module";
 
 export enum EHal {
     MODUL = 'modul',
@@ -7,9 +8,10 @@ export enum EHal {
 
 export type IData = {
     hal: EHal,
-    // idModulDipilih: number,
     modulAktif: IModulEntity,
+    fungsi: TDekFungsi,
     modulAr: IModulEntity[],
+    dekFungsiAr: TDekFungsi[]
 }
 
 export function getDef(): IData {
@@ -22,6 +24,8 @@ export function clone(data: IData): IData {
 
     return {
         ...data,
+
+        modulAktif: cloneModule(data.modulAktif),
         modulAr: data.modulAr.map((item) => { return cloneModule(item) })
     }
 }
@@ -49,11 +53,9 @@ export function load(): IData {
 let defData: IData = {
     hal: EHal.MODUL,
     modulAktif: null,
-    modulAr: [{
-        id: 0,
-        anak: [],
-        nama: 'root',
-    }]
+    fungsi: null,
+    modulAr: [buatModule('root')],
+    dekFungsiAr: []
 }
 defData.modulAktif = defData.modulAr[0];
 

@@ -5,6 +5,7 @@ export type IModulEntity = {
     id: number,
     nama: string,
     anak: number[],
+    fungsi: number[]
 }
 
 export function getModulById(id: number, data: IData): IModulEntity {
@@ -31,11 +32,12 @@ export function loadByIdIn(ids: number[], data: IData): IModulEntity[] {
     });
 }
 
-export function buat(nama: string): IModulEntity {
+export function buatModule(nama: string): IModulEntity {
     let modulBaru: IModulEntity = {
         id: id(),
         nama: nama,
         anak: [],
+        fungsi: []
     }
 
     return modulBaru;
