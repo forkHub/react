@@ -5,7 +5,7 @@ export enum EHal {
     MODUL_EDIT = 'modul_edit'
 }
 
-export interface IData {
+export type IData = {
     hal: EHal,
     idModulDipilih: number,
     modulAr: IModulEntity[],
