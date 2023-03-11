@@ -1,4 +1,4 @@
-import { IMainData } from "../pages/main/MainStore";
+import { IData } from "../app/Store";
 import { EEntityType } from "../pages/module/ModuleInterface";
 import { id } from "../util/Id";
 
@@ -10,7 +10,7 @@ export interface IModulEntity {
 }
 
 //TODO: remove data
-export function getModulById(id: number, data: IMainData): IModulEntity {
+export function getModulById(id: number, data: IData): IModulEntity {
 
     let hasil: IModulEntity = data.modulAr.find((item: IModulEntity) => {
         return item.id == id;
@@ -22,7 +22,7 @@ export function getModulById(id: number, data: IMainData): IModulEntity {
     return hasil;
 }
 
-export function loadByIdIn(ids: number[], data: IMainData): IModulEntity[] {
+export function loadByIdIn(ids: number[], data: IData): IModulEntity[] {
     // console.log('load by id in: ' + ids);
     if (ids.length == 0) return [];
 

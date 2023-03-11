@@ -1,19 +1,18 @@
 import React, { useContext } from 'react';
 import { Item } from './Item';
 import { Menu } from './Menu';
-import { MainContext } from '../main/MainContext';
-import { IMainData } from '../main/MainStore';
+import { Context } from '../../app/Context';
+import { IData } from '../../app/Store';
 import { getModulById } from '../../entity/Module';
 
 export function ModuleApp() {
-
     return <>
         <Content />
     </>
 }
 
 function Content() {
-    const data: IMainData = useContext(MainContext);
+    const data: IData = useContext(Context);
 
     return <>
         <Item

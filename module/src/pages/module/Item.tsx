@@ -1,10 +1,10 @@
 import React, { useContext, useEffect, useState } from "react";
-import { IMainData } from "../main/MainStore";
-import { MainContext, MainDispatch } from "../main/MainContext";
+import { IData } from "../../app/Store";
+import { Context, Dispatch } from "../../app/Context";
 import { getModulById, IModulEntity, loadByIdIn } from "../../entity/Module";
 import { pilihModul } from "./ModuleReducer";
 
-async function load(id: number, mainData: IMainData): Promise<[IModulEntity, IModulEntity[]]> {
+async function load(id: number, mainData: IData): Promise<[IModulEntity, IModulEntity[]]> {
     let modul: IModulEntity = getModulById(id, mainData);
     let anak: IModulEntity[] = loadByIdIn(modul.anak, mainData);
 
@@ -12,8 +12,8 @@ async function load(id: number, mainData: IMainData): Promise<[IModulEntity, IMo
 }
 
 export function Item({ id }: any) {
-    const mainData: IMainData = useContext(MainContext);
-    const dispatcher = useContext(MainDispatch);
+    const mainData: IData = useContext(Context);
+    const dispatcher = useContext(Dispatch);
 
     const [modul, setModul]: [IModulEntity, any] = useState(null);
     const [anak, setAnak]: [IModulEntity[], any] = useState([]);

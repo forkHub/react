@@ -1,12 +1,11 @@
 import React, { useContext } from "react";
 import { buat, getModulById } from "../../entity/Module";
-import { MainContext, MainDispatch } from "../main/MainContext";
-import { EMainAction } from "../main/MainReducer";
-import { EHal, IMainData } from "../main/MainStore";
+import { Context, Dispatch } from "../../app/Context";
+import { EHal, IData } from "../../app/Store";
 import { tambahModul } from "./ModuleReducer";
 
 export function Menu() {
-    let data = useContext(MainContext);
+    let data = useContext(Context);
 
     return <>
         {data.hal == EHal.MODUL && <ModulPilih />}
@@ -18,8 +17,8 @@ export function Menu() {
 }
 
 function ModulPilih() {
-    let data: IMainData = useContext(MainContext);
-    let dispatch = useContext(MainDispatch);
+    let data: IData = useContext(Context);
+    let dispatch = useContext(Dispatch);
 
     return <>
         <button onClick={() => {

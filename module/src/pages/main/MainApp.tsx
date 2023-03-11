@@ -1,14 +1,12 @@
 import React from 'react';
 import { useContext } from "react";
-import { MainContext } from "./MainContext";
-import { EHal, IMainData } from "./MainStore";
-import { MainPovider } from "./MainProvider";
+import { Context } from "../../app/Context";
+import { EHal, IData } from "../../app/Store";
 import { EditMain } from '../module_edit/EditApp';
 import { ModuleApp } from '../module/ModuleApp';
 
 function Content() {
-    const data: IMainData = useContext(MainContext);
-
+    const data: IData = useContext(Context);
 
     if (data.hal === EHal.MODUL) {
         return <ModuleApp />
@@ -24,8 +22,6 @@ function Content() {
 export function AppMain() {
 
     return <>
-        <MainPovider>
-            <Content />
-        </MainPovider>
+        <Content />
     </>
 }

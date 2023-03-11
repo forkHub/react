@@ -1,18 +1,18 @@
-import { IModulEntity } from "../../entity/Module";
-import { EEntityType } from "../module/ModuleInterface";
+import { IModulEntity } from "../entity/Module";
+import { EEntityType } from "../pages/module/ModuleInterface";
 
 export enum EHal {
     MODUL = 'modul',
     MODUL_EDIT = 'modul_edit'
 }
 
-export interface IMainData {
+export interface IData {
     hal: EHal,
     idModulDipilih: number,
     modulAr: IModulEntity[],
 }
 
-const defData: IMainData = {
+const defData: IData = {
     hal: EHal.MODUL,
     idModulDipilih: 0,
     modulAr: [{
@@ -23,10 +23,10 @@ const defData: IMainData = {
     }]
 }
 
-export function getDef(): IMainData {
+export function getDef(): IData {
     return defData;
 }
 
-export function clone(data: IMainData): IMainData {
+export function clone(data: IData): IData {
     return { ...data }
 }
