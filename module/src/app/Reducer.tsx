@@ -8,7 +8,7 @@ export enum EAction {
     MODUL_TAMBAH = 'modul/tambah'
 }
 
-export interface IAction {
+export type IAction = {
     type: EAction,
     id?: number,
     modul?: IModulEntity,

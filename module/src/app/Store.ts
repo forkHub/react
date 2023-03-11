@@ -22,7 +22,7 @@ const defData: IData = {
 }
 
 export function getDef(): IData {
-    return defData;
+    return clone(defData);
 }
 
 export function clone(data: IData): IData {

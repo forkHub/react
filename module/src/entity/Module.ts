@@ -1,13 +1,12 @@
 import { IData } from "../app/Store";
 import { id } from "../util/Id";
 
-export interface IModulEntity {
+export type IModulEntity = {
     id: number,
     nama: string,
     anak: number[],
 }
 
-//TODO: remove data
 export function getModulById(id: number, data: IData): IModulEntity {
 
     let hasil: IModulEntity = data.modulAr.find((item: IModulEntity) => {
@@ -15,13 +14,11 @@ export function getModulById(id: number, data: IData): IModulEntity {
     });
 
     if (!hasil) throw Error('id not found: ' + id);
-    // console.log(hasil);
 
     return hasil;
 }
 
 export function loadByIdIn(ids: number[], data: IData): IModulEntity[] {
-    // console.log('load by id in: ' + ids);
     if (ids.length == 0) return [];
 
     return data.modulAr.filter((item: IModulEntity) => {
