@@ -1,6 +1,6 @@
 import { createRoot, Root } from 'react-dom/client';
 import React from 'react';
-import { AppMain } from './pages/main/MainApp';
+import { MainPage } from './pages/main/MainPage';
 import "./css/css.css";
 import { Provider } from './app/Provider';
 
@@ -12,6 +12,6 @@ const root: Root = createRoot(cont);
 
 root.render(<>
     <Provider>
-        <AppMain />
+        <MainPage />
     </Provider>
 </>);

@@ -5,13 +5,7 @@ import { Context } from '../../app/Context';
 import { IData } from '../../app/Store';
 import { getModulById } from '../../entity/Module';
 
-export function ModuleApp() {
-    return <>
-        <Content />
-    </>
-}
-
-function Content() {
+export function ModulePage() {
     const data: IData = useContext(Context);
 
     return <>

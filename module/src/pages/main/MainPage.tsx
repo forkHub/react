@@ -3,13 +3,13 @@ import { useContext } from "react";
 import { Context } from "../../app/Context";
 import { EHal, IData } from "../../app/Store";
 import { EditMain } from '../module_edit/EditApp';
-import { ModuleApp } from '../module/ModuleApp';
+import { ModulePage } from '../module/ModulePage';
 
-function Content() {
+export function MainPage() {
     const data: IData = useContext(Context);
 
     if (data.hal === EHal.MODUL) {
-        return <ModuleApp />
+        return <ModulePage />
     }
     else if (data.hal === EHal.MODUL_EDIT) {
         return <EditMain />
@@ -17,11 +17,4 @@ function Content() {
     else {
         throw Error('');
     }
-}
-
-export function AppMain() {
-
-    return <>
-        <Content />
-    </>
 }

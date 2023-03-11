@@ -1,12 +1,10 @@
 import { IData } from "../app/Store";
-import { EEntityType } from "../pages/module/ModuleInterface";
 import { id } from "../util/Id";
 
 export interface IModulEntity {
     id: number,
     nama: string,
     anak: number[],
-    type: EEntityType
 }
 
 //TODO: remove data
@@ -41,7 +39,6 @@ export function buat(nama: string): IModulEntity {
         id: id(),
         nama: nama,
         anak: [],
-        type: EEntityType.MODUL
     }
 
     return modulBaru;

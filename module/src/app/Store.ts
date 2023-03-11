@@ -1,5 +1,4 @@
 import { IModulEntity } from "../entity/Module";
-import { EEntityType } from "../pages/module/ModuleInterface";
 
 export enum EHal {
     MODUL = 'modul',
@@ -19,7 +18,6 @@ const defData: IData = {
         id: 0,
         anak: [],
         nama: 'root',
-        type: EEntityType.MODUL
     }]
 }
 
