@@ -1,40 +1,43 @@
-import { TDekFungsi } from "../entity/DekFungsi";
+import { clone as cloneFungsi, TDekFungsi } from "../entity/DekFungsi";
 import { buatModule, cloneModule, IModulEntity } from "../entity/Module";
 
 export enum EHal {
     MODUL = 'modul',
-    MODUL_EDIT = 'modul_edit'
+    MODUL_EDIT = 'modul_edit',
+    FUNGSI_EDIT = 'fungsi_edit'
 }
 
-export type IData = {
+export type TData = {
     hal: EHal,
-    modulAktif: IModulEntity,
-    fungsi: TDekFungsi,
+
     modulAr: IModulEntity[],
     dekFungsiAr: TDekFungsi[]
+
+    fungsi: TDekFungsi,
+    modulAktif: IModulEntity,
 }
 
-export function getDef(): IData {
+export function getDef(): TData {
     return clone(defData);
 }
 
-export function clone(data: IData): IData {
-    console.log('clone: ');
-    console.log(data);
-
+export function clone(data: TData): TData {
     return {
         ...data,
 
         modulAktif: cloneModule(data.modulAktif),
-        modulAr: data.modulAr.map((item) => { return cloneModule(item) })
+        fungsi: cloneFungsi(data.fungsi),
+
+        modulAr: data.modulAr.map((item) => { return cloneModule(item) }),
+        dekFungsiAr: data.dekFungsiAr.map((item) => { return cloneFungsi(item) }),
     }
 }
 
-export function simpan(data: IData): void {
+export function simpan(data: TData): void {
     window.localStorage.setItem('ha.modul', JSON.stringify(data));
 }
 
-export function load(): IData {
+export function load(): TData {
     console.log('load');
 
     try {
@@ -50,7 +53,7 @@ export function load(): IData {
     }
 }
 
-let defData: IData = {
+let defData: TData = {
     hal: EHal.MODUL,
     modulAktif: null,
     fungsi: null,

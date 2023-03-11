@@ -1,4 +1,4 @@
-import { IData } from "../app/Store";
+import { TData } from "../app/Store";
 import { id } from "../util/Id";
 
 export type IModulEntity = {
@@ -8,7 +8,7 @@ export type IModulEntity = {
     fungsi: number[]
 }
 
-export function getModulById(id: number, data: IData): IModulEntity {
+export function getModulById(id: number, data: TData): IModulEntity {
 
     let hasil: IModulEntity = data.modulAr.find((item: IModulEntity) => {
         return item.id == id;
@@ -19,7 +19,7 @@ export function getModulById(id: number, data: IData): IModulEntity {
     return hasil;
 }
 
-export function loadByIdIn(ids: number[], data: IData): IModulEntity[] {
+export function loadByIdIn(ids: number[], data: TData): IModulEntity[] {
     if (ids.length == 0) return [];
 
     return data.modulAr.filter((item: IModulEntity) => {

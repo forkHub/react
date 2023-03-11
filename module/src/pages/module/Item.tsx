@@ -1,17 +1,17 @@
 import React, { useContext, useEffect, useState } from "react";
 import { Context, Dispatch } from "../../app/Provider";
-import { IData } from "../../app/Store";
+import { TData } from "../../app/Store";
 import { IModulEntity, loadByIdIn } from "../../entity/Module";
 import { pilihModul } from "./ModuleReducer";
 
-async function loadAnak(modul: IModulEntity, mainData: IData): Promise<[IModulEntity[]]> {
+async function loadAnak(modul: IModulEntity, mainData: TData): Promise<[IModulEntity[]]> {
     let anak: IModulEntity[] = loadByIdIn(modul.anak, mainData);
 
     return [anak];
 }
 
 export function Item({ modul }: { modul: IModulEntity }) {
-    const data: IData = useContext(Context);
+    const data: TData = useContext(Context);
     const dispatch = useContext(Dispatch);
 
     const [anak, setAnak]: [IModulEntity[], any] = useState([]);

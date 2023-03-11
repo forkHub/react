@@ -1,11 +1,11 @@
 import React, { useContext } from 'react';
 import { Item } from './Item';
 import { Menu } from './Menu';
-import { IData } from '../../app/Store';
+import { TData } from '../../app/Store';
 import { Context } from '../../app/Provider';
 
 export function ModulePage() {
-    const data: IData = useContext(Context);
+    const data: TData = useContext(Context);
 
     return <>
         <Item

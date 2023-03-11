@@ -1,4 +1,4 @@
-import { clone, EHal, IData } from "../../app/Store";
+import { clone, EHal, TData } from "../../app/Store";
 import { getModulById, IModulEntity } from "../../entity/Module";
 import { IAction, EAction } from "../../app/Reducer";
 
@@ -9,7 +9,7 @@ export function pilihModul(dispatch: React.Dispatch<IAction>, modul: IModulEntit
     });
 }
 
-function handleModuleDipilih(data: IData, modul: IModulEntity): IData {
+function handleModuleDipilih(data: TData, modul: IModulEntity): TData {
     let data2 = clone(data);
     data2.modulAktif = getModulById(modul.id, data);
 
@@ -25,9 +25,9 @@ export function tambahModul(dispatch: React.Dispatch<IAction>, modul: IModulEnti
     });
 }
 
-function handleModuleDitambah(data: IData, modulBaru: IModulEntity, induk: IModulEntity): IData {
+function handleModuleDitambah(data: TData, modulBaru: IModulEntity, induk: IModulEntity): TData {
 
-    let data2: IData = clone(data);
+    let data2: TData = clone(data);
     data2.modulAr.push(modulBaru);
     getModulById(induk.id, data2).anak.push(modulBaru.id);
 
@@ -40,13 +40,13 @@ export function editModul(dispatch: React.Dispatch<IAction>) {
     });
 }
 
-function handleModuleDiedit(data: IData): IData {
+function handleModuleDiedit(data: TData): TData {
     let data2 = clone(data);
     data2.hal = EHal.MODUL_EDIT;
     return data2;
 }
 
-export function ModuleReducer(data: IData, action: IAction): IData {
+export function ModuleReducer(data: TData, action: IAction): TData {
     console.log('module Reducer ');
     console.log(action);
 

@@ -1,12 +1,12 @@
 import React from 'react';
 import { useContext } from "react";
-import { EHal, IData, simpan } from "../../app/Store";
+import { EHal, TData, simpan } from "../../app/Store";
 import { ModulePage } from '../module/ModulePage';
 import { Context } from '../../app/Provider';
 import { ModulEditPage } from '../module_edit/ModulEditPage';
 
 export function MainPage() {
-    const data: IData = useContext(Context);
+    const data: TData = useContext(Context);
     simpan(data);
 
     if (data.hal === EHal.MODUL) {

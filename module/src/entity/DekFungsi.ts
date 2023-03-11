@@ -6,6 +6,12 @@ export type TDekFungsi = {
     anak: number[]
 }
 
+export function clone(fungsi: TDekFungsi): TDekFungsi {
+    return {
+        ...fungsi
+    }
+}
+
 export function buat(name: string): TDekFungsi {
     return {
         id: id(),

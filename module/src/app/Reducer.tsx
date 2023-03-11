@@ -2,7 +2,7 @@ import { TDekFungsi } from "../entity/DekFungsi";
 import { IModulEntity } from "../entity/Module";
 import { ModuleReducer } from "../pages/module/ModuleReducer";
 import { EditModuleReducer } from "../pages/module_edit/ModulEditReducer";
-import { IData } from "./Store";
+import { TData } from "./Store";
 
 export enum EAction {
     MODUL_EDIT = 'modul/edit',
@@ -11,6 +11,8 @@ export enum EAction {
 
     MODUL_EDIT_SELESAI = 'modul_edit/selesai',
     MODUL_EDIT_TAMBAH_FUNGSI = 'modul_edit/tambah_fungsi',
+
+    SAMPLE_ADD = 'sample/add'
 }
 
 export type IAction = {
@@ -19,13 +21,16 @@ export type IAction = {
     modul?: IModulEntity,
     induk?: IModulEntity,
     fungsi?: TDekFungsi,
+
+
+    sample?: number
 }
 
 function getTag(str: string): string {
     return str.slice(0, str.indexOf('/'));
 }
 
-export function Reducer(data: IData, action: IAction): IData {
+export function Reducer(data: TData, action: IAction): TData {
     let tag: string = getTag(action.type);
 
     switch (tag) {

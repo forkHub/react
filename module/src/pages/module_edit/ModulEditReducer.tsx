@@ -1,6 +1,6 @@
 import React from "react";
 import { EAction, IAction } from "../../app/Reducer";
-import { IData, clone, EHal } from "../../app/Store";
+import { TData, clone, EHal } from "../../app/Store";
 import { buat, TDekFungsi } from "../../entity/DekFungsi";
 import { getModulById } from "../../entity/Module";
 
@@ -12,7 +12,7 @@ export function editModulSelesai(dispatch: React.Dispatch<IAction>) {
     });
 }
 
-function handleEditModuleSelesai(data: IData): IData {
+function handleEditModuleSelesai(data: TData): TData {
 
     let data2 = clone(data);
     data2.hal = EHal.MODUL;
@@ -29,18 +29,17 @@ export function tambahFungsi(dispatch: React.Dispatch<IAction>) {
     });
 }
 
-function handleTambahFungsi(data: IData, fungsi: TDekFungsi): IData {
-    console.log('handle tambah fungsi');
+function handleTambahFungsi(data: TData, fungsi: TDekFungsi): TData {
 
-    let data2: IData = clone(data);
+    let data2: TData = clone(data);
 
     data2.dekFungsiAr.push(fungsi);
-    getModulById(data.modulAktif.id, data2).fungsi.push(fungsi.id);
+    data.modulAktif.fungsi.push(fungsi.id);
 
     return data2;
 }
 
-export function EditModuleReducer(data: IData, action: IAction): IData {
+export function EditModuleReducer(data: TData, action: IAction): TData {
     switch (action.type) {
         case EAction.MODUL_EDIT_SELESAI: {
             return handleEditModuleSelesai(data);

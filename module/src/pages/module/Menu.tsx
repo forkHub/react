@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import { buatModule, getModulById } from "../../entity/Module";
-import { EHal, IData } from "../../app/Store";
+import { EHal, TData } from "../../app/Store";
 import { editModul, tambahModul } from "./ModuleReducer";
 import { Context, Dispatch } from "../../app/Provider";
 
@@ -17,7 +17,7 @@ export function Menu() {
 }
 
 function ModulPilih() {
-    let data: IData = useContext(Context);
+    let data: TData = useContext(Context);
     let dispatch = useContext(Dispatch);
 
     return <>
