@@ -19,23 +19,19 @@ function handleModuleDipilih(data: TData, modul: IModulEntity): TData {
     return data2;
 }
 
-export function tambahModul(dispatch: React.Dispatch<TAction>): void {
+// export function tambahModul(dispatch: React.Dispatch<TAction>): void {
 
-    dispatch({
-        type: EAction.MODUL_TAMBAH,
-    });
-}
+//     dispatch({
+//         type: EAction.MODUL_TAMBAH,
+//     });
+// }
 
-function handleModuleDitambah(data: TData): TData {
+// function handleModuleDitambah(data: TData): TData {
 
-    let data2: TData = clone(data);
+//     let data2: TData = clone(data);
 
-    // addModule(modulBaru);
-    // induk.anak.push(modulBaru.id);
-    // simpanModul();
-
-    return data2;
-}
+//     return data2;
+// }
 
 export function editModul(dispatch: React.Dispatch<TAction>) {
     dispatch({
@@ -72,9 +68,6 @@ export function ModuleReducer(data: TData, action: TAction): TData {
         }
         case EAction.MODUL_PILIH: {
             return handleModuleDipilih(data, action.modul);
-        }
-        case EAction.MODUL_TAMBAH: {
-            return handleModuleDitambah(data);
         }
         case EAction.MODUL_SAMPLE: {
             return handleSampleKlik(data);

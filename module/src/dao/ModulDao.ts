@@ -73,6 +73,13 @@ export async function loadModulByIdIn(ids: number[]): Promise<IModulEntity[]> {
     return hasil;
 }
 
+export async function hapusModul(modul: IModulEntity): Promise<void> {
+    daftar = daftar.filter((item) => {
+        return (item.id != modul.id)
+    });
+    simpanModul();
+}
+
 const table: string = 'ha.modul.modul';
 
 let daftar: IModulEntity[] = [{

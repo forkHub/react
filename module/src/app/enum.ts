@@ -3,16 +3,25 @@ export enum EHal {
     MODUL_EDIT = 'modul_edit',
     FUNGSI_EDIT = 'edit_fungsi',
     SAMPLE = 'sample',
+    MAIN = 'main',
+}
+
+export enum EEntity {
+    MODUL_ENT = 'modul_ent',
+    FUNGSI_ENT = 'fungsi_ent'
 }
 
 export enum EAction {
+    MAIN_DIUPDATE = 'main/diupdate',
+
     MODUL_ENT_DIPILIH = 'modul_ent/dipilih',
+    MODUL_ENT_DIHAPUS = 'modul_ent/dihapus',
+    MODUL_ENT_DITAMBAH = 'modul_ent/ditambah',
 
     FUNGSI_ENT_DIPILIH = 'fungsi_ent/dipilih',
 
-    MODUL_EDIT = 'modul/edit',
-    MODUL_PILIH = 'modul/pilih',
-    MODUL_TAMBAH = 'modul/tambah',
+    MODUL_EDIT = 'modul/diedit',
+    MODUL_PILIH = 'modul/dipilih',
     MODUL_SAMPLE = 'modul/sample',
 
     MODUL_EDIT_SELESAI = 'modul_edit/selesai',
