@@ -11,11 +11,10 @@ export function pilihModul(dispatch: React.Dispatch<IAction>, modul: IModulEntit
 
 export function handleModuleDipilih(data: IData, modul: IModulEntity): IData {
     let data2 = clone(data);
-    data2.idModulDipilih = modul.id;
+    data2.modulAktif = getModulById(modul.id, data);
 
     return data2;
 }
-
 
 export function tambahModul(dispatch: React.Dispatch<IAction>, modul: IModulEntity, induk: IModulEntity): void {
 

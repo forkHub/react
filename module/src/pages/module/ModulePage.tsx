@@ -2,7 +2,6 @@ import React, { useContext } from 'react';
 import { Item } from './Item';
 import { Menu } from './Menu';
 import { IData } from '../../app/Store';
-import { getModulById } from '../../entity/Module';
 import { Context } from '../../app/Provider';
 
 export function ModulePage() {
@@ -11,12 +10,10 @@ export function ModulePage() {
     return <>
         <Item
             key={data.modulAr[0].id}
-            id={data.modulAr[0].id}
-        ></Item>
-        <hr />
+            modul={data.modulAr[0]}></Item>
 
         <div>
-            Selected modul: {getModulById(data.idModulDipilih, data).nama} - modul dipilih {data.idModulDipilih}
+            Selected modul: {data.modulAktif.nama} + {data.modulAktif.id}
         </div>
 
         <Menu />

@@ -1,50 +1,49 @@
 import React, { useContext, useEffect, useState } from "react";
 import { Context, Dispatch } from "../../app/Provider";
 import { IData } from "../../app/Store";
-import { getModulById, IModulEntity, loadByIdIn } from "../../entity/Module";
+import { IModulEntity, loadByIdIn } from "../../entity/Module";
 import { pilihModul } from "./ModuleReducer";
 
-async function load(id: number, mainData: IData): Promise<[IModulEntity, IModulEntity[]]> {
-    let modul: IModulEntity = getModulById(id, mainData);
+async function loadAnak(modul: IModulEntity, mainData: IData): Promise<[IModulEntity[]]> {
     let anak: IModulEntity[] = loadByIdIn(modul.anak, mainData);
 
-    return [modul, anak];
+    return [anak];
 }
 
-export function Item({ id }: any) {
-    const mainData: IData = useContext(Context);
-    const dispatcher = useContext(Dispatch);
+export function Item({ modul }: { modul: IModulEntity }) {
+    const data: IData = useContext(Context);
+    const dispatch = useContext(Dispatch);
 
-    const [modul, setModul]: [IModulEntity, any] = useState(null);
     const [anak, setAnak]: [IModulEntity[], any] = useState([]);
 
     useEffect(() => {
-        load(id, mainData).then(([modul, anak]) => {
-            setModul(modul);
+        loadAnak(modul, data).then(([anak]) => {
             setAnak(anak);
         }).catch((e) => {
             console.log(e);
         });
-    }, [mainData])
+    }, [data])
 
-    let item2 = anak.map((item: IModulEntity) => {
-        return <Item key={item.id} id={item.id}></Item>
+    let itemAnak = anak.map((item: IModulEntity) => {
+        return <Item key={item.id} modul={item}></Item>
     });
 
     const handleModuleDiKlik = (modul: IModulEntity) => {
-        pilihModul(dispatcher, modul);
+        pilihModul(dispatch, modul);
     }
 
     return (
-        modul &&
         <div>
-            <div className={"disp-flex " + (mainData.idModulDipilih == id ? "border" : "")}>
+            <div
+                className={"disp-flex " + (data.modulAktif.id == modul.id ? "border" : "")}>
                 {modul.nama}
-                <button type="button" onClick={() => { handleModuleDiKlik(modul) }}>pilih</button>
+                <button
+                    type="button"
+                    onClick={() => { handleModuleDiKlik(modul) }}>
+                    pilih
+                </button>
             </div>
-            <div className="pad-left-4">
-                {item2}
-            </div>
+            <div className="pad-left-4">{itemAnak}</div>
         </div >
     )
 }

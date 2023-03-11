@@ -9,7 +9,7 @@ export function ModulEditPage() {
     const dispatch = useContext(Dispatch);
 
     return <>
-        <div>modul: {data.idModulDipilih}</div>
+        <div>modul: {data.modulAktif.nama} [ {data.modulAktif.id} ]</div>
         <button
             onClick={() => {
                 editModulSelesai(dispatch);
