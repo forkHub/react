@@ -1,8 +1,9 @@
 import { clone, TData } from "../../app/Store";
-import { getModulById, IModulEntity } from "../../entity/Module";
+import { IModulEntity } from "../../entity/Module";
 import { TAction } from "../../app/Reducer";
 import React from "react";
 import { EAction, EHal } from "../../app/enum";
+import { addModule, getModulById, simpanModul } from "../../dao/ModulDao";
 
 export function pilihModul(dispatch: React.Dispatch<TAction>, modul: IModulEntity): void {
     dispatch({
@@ -13,7 +14,8 @@ export function pilihModul(dispatch: React.Dispatch<TAction>, modul: IModulEntit
 
 function handleModuleDipilih(data: TData, modul: IModulEntity): TData {
     let data2 = clone(data);
-    data2.modulAktif = getModulById(modul.id, data);
+    // data2.modulAktif = getModulById(modul.id);
+    data2.idModulDipilih = modul.id;
 
     return data2;
 }
@@ -30,8 +32,10 @@ export function tambahModul(dispatch: React.Dispatch<TAction>, modul: IModulEnti
 function handleModuleDitambah(data: TData, modulBaru: IModulEntity, induk: IModulEntity): TData {
 
     let data2: TData = clone(data);
-    data2.modulAr.push(modulBaru);
-    getModulById(induk.id, data2).anak.push(modulBaru.id);
+
+    addModule(modulBaru);
+    induk.anak.push(modulBaru.id);
+    simpanModul();
 
     return data2;
 }

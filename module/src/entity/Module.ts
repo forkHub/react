@@ -8,40 +8,40 @@ export type IModulEntity = {
     fungsi: number[]
 }
 
-export function getModulById(id: number, data: TData): IModulEntity {
+// export function getModulById(id: number, data: TData): IModulEntity {
 
-    let hasil: IModulEntity = data.modulAr.find((item: IModulEntity) => {
-        return item.id == id;
-    });
+//     let hasil: IModulEntity = data.modulAr.find((item: IModulEntity) => {
+//         return item.id == id;
+//     });
 
-    if (!hasil) throw Error('id not found: ' + id);
+//     if (!hasil) throw Error('id not found: ' + id);
 
-    return hasil;
-}
+//     return hasil;
+// }
 
-export function loadByIdIn(ids: number[], data: TData): IModulEntity[] {
-    if (ids.length == 0) return [];
+// export function loadByIdIn(ids: number[], data: TData): IModulEntity[] {
+//     if (ids.length == 0) return [];
 
-    return data.modulAr.filter((item: IModulEntity) => {
-        let ok: boolean = false;
-        ids.forEach((id: number) => {
-            if (item.id == id) ok = true;
-        });
+//     return data.modulAr.filter((item: IModulEntity) => {
+//         let ok: boolean = false;
+//         ids.forEach((id: number) => {
+//             if (item.id == id) ok = true;
+//         });
 
-        return ok;
-    });
-}
+//         return ok;
+//     });
+// }
 
-export function buatModule(nama: string): IModulEntity {
-    let modulBaru: IModulEntity = {
-        id: id(),
-        nama: nama,
-        anak: [],
-        fungsi: []
-    }
+// export function buatModule(nama: string): IModulEntity {
+//     let modulBaru: IModulEntity = {
+//         id: id(),
+//         nama: nama,
+//         anak: [],
+//         fungsi: []
+//     }
 
-    return modulBaru;
-}
+//     return modulBaru;
+// }
 
 export function cloneModule(modul: IModulEntity): IModulEntity {
     return { ...modul }

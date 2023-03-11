@@ -2,6 +2,7 @@ import React from "react";
 import { EAction, EHal } from "../../app/enum";
 import { TAction, } from "../../app/Reducer";
 import { TData, clone } from "../../app/Store";
+import { getModulById } from "../../dao/ModulDao";
 import { buat, TDekFungsi } from "../../entity/DekFungsi";
 
 export function editModulSelesai(dispatch: React.Dispatch<TAction>) {
@@ -34,7 +35,7 @@ function handleTambahFungsi(data: TData, fungsi: TDekFungsi): TData {
     let data2: TData = clone(data);
 
     data2.dekFungsiAr.push(fungsi);
-    data.modulAktif.fungsi.push(fungsi.id);
+    getModulById(data.idModulDipilih).fungsi.push(fungsi.id);
 
     return data2;
 }

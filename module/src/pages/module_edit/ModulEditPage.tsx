@@ -2,7 +2,9 @@ import React, { useContext, useEffect, useState } from 'react';
 import { EHal } from '../../app/enum';
 import { Context, Dispatch } from '../../app/Provider';
 import { Varlist } from '../../comp/VarList';
+import { getModulById } from '../../dao/ModulDao';
 import { loadByIdIn, TDekFungsi } from '../../entity/DekFungsi';
+import { IModulEntity } from '../../entity/Module';
 import { DekFungList } from './DekFungsiList';
 import { editModulSelesai } from './ModulEditReducer';
 
@@ -15,8 +17,10 @@ export function ModulEditPage() {
     const dispatch = useContext(Dispatch);
     const [fungsi, setFungsi]: [TDekFungsi[], any] = useState([]);
 
+    const modul: IModulEntity = getModulById(data.idModulDipilih);
+
     useEffect(() => {
-        loadFungsi(data.modulAktif.fungsi, data.dekFungsiAr).then((item: TDekFungsi[]) => {
+        loadFungsi(modul.fungsi, data.dekFungsiAr).then((item: TDekFungsi[]) => {
             setFungsi(item);
         }).catch((e) => {
             console.log(e);
@@ -25,7 +29,7 @@ export function ModulEditPage() {
     }, [data])
 
     return <>
-        <div>modul: {data.modulAktif.nama} [ {data.modulAktif.id} ]</div>
+        <div>modul: {modul.nama} [ {modul.id} ]</div>
         <div>
             <Varlist list={EHal.MODUL_EDIT} />
         </div>

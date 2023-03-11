@@ -1,11 +1,12 @@
 import React, { useContext, useEffect, useState } from "react";
 import { Context, Dispatch } from "../../app/Provider";
 import { TData } from "../../app/Store";
-import { IModulEntity, loadByIdIn } from "../../entity/Module";
+import { loadModulByIdIn } from "../../dao/ModulDao";
+import { IModulEntity } from "../../entity/Module";
 import { pilihModul } from "./ModuleReducer";
 
 async function loadAnak(modul: IModulEntity, mainData: TData): Promise<[IModulEntity[]]> {
-    let anak: IModulEntity[] = loadByIdIn(modul.anak, mainData);
+    let anak: IModulEntity[] = loadModulByIdIn(modul.anak);
 
     return [anak];
 }
@@ -35,7 +36,7 @@ export function Item({ modul }: { modul: IModulEntity }) {
     return (
         <div>
             <div
-                className={"disp-flex " + (data.modulAktif.id == modul.id ? "border" : "")}>
+                className={"disp-flex " + (data.idModulDipilih == modul.id ? "border" : "")}>
                 {modul.nama}
                 <button
                     type="button"

@@ -1,9 +1,9 @@
 import React, { useContext } from "react";
-import { buatModule, getModulById } from "../../entity/Module";
 import { TData } from "../../app/Store";
 import { editModul, tambahModul } from "./ModuleReducer";
 import { Context, Dispatch } from "../../app/Provider";
 import { EHal } from "../../app/enum";
+import { buatModule, getModulById } from "../../dao/ModulDao";
 
 export function Menu() {
     let data = useContext(Context);
@@ -28,7 +28,7 @@ function ModulPilih() {
 
     return <>
         <button onClick={() => {
-            tambahModul(dispatch, buatModule('test'), data.modulAktif);
+            tambahModul(dispatch, buatModule('test'), getModulById(getModulById(data.idModulDipilih).id));
         }}> Tambah </button>
 
         <button onClick={() => {
