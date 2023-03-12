@@ -1,19 +1,21 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect, useRef, useState } from 'react';
 import { Item } from './Item';
 import { Menu } from './Menu';
 import { TData } from '../../app/Store';
 import { Context } from '../../app/Provider';
-import * as modulDao from '../../dao/ModulDao';
+import * as modulDao from '../../dao/ModulTable';
 import { IModulEntity } from '../../entity/Module';
 
 export function ModulePage() {
+    console.log('Module Page');
+
     const data: TData = useContext(Context);
     const [modul, setModul]: [IModulEntity, any] = useState(null);
     const [modulDipilih, setModulDipilih]: [IModulEntity, any] = useState(null);
 
     useEffect(() => {
         console.log('use effect');
-        console.log(data);
+
         modulDao.loadModulByIdIn([0, data.idModulAktif])
             .then(([modul, modulDipilih]) => {
                 setModul(modul);
@@ -25,7 +27,7 @@ export function ModulePage() {
                 console.error(e);
                 throw Error('');
             });
-    }, [data]);
+    }, [data.moduleEntityUpdateId]);
 
     return <>
         {modul && modulDipilih && <>

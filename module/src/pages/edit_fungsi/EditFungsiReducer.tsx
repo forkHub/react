@@ -5,7 +5,7 @@ import { TData, clone } from "../../app/Store";
 
 export function sampleAdd(dispatch: React.Dispatch<TAction>, sampleParam: any) {
     dispatch({
-        type: EAction.MODUL_SAMPLE,
+        type: EAction.MODUL_SAMPLE_DIKLIK,
         sample: sampleParam
     });
 }
@@ -20,7 +20,7 @@ function handleSampleAdd(data: TData, sampleParam: any): TData {
 
 export function EditFungsiReducer(data: TData, action: TAction): TData {
     switch (action.type) {
-        case EAction.MODUL_SAMPLE: {
+        case EAction.MODUL_SAMPLE_DIKLIK: {
             return handleSampleAdd(data, action.sample);
         }
         default: {

@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import { Context, Dispatch } from '../../app/Provider';
 import { TData } from '../../app/Store';
 import { getFungsiById } from '../../dao/FungsiDao';
-import { getModulById } from '../../dao/ModulDao';
+import { getModulById } from '../../dao/ModulTable';
 import { TDekFungsi } from '../../entity/DekFungsi';
 import { IModulEntity } from '../../entity/Module';
 

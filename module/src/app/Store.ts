@@ -5,6 +5,7 @@ export type TData = {
     id: number;
     idModulAktif: number;
     idFungsiAktif: number;
+    moduleEntityUpdateId: number;
 }
 
 export function getDef(): TData {
@@ -22,4 +23,5 @@ let defData: TData = {
     id: 0,
     idModulAktif: 0,
     idFungsiAktif: 0,
+    moduleEntityUpdateId: 0
 }

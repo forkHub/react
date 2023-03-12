@@ -1,7 +1,6 @@
 import { IModulEntity } from "../entity/Module";
-import { id } from "../util/Id";
 
-export function simpanModul(): void {
+function commitModul(): void {
     window.localStorage.setItem(table, JSON.stringify(daftar));
 }
 
@@ -17,12 +16,12 @@ function load(): void {
         }
         else {
             daftar.push(buatModuleDefault());
-            simpanModul();
+            commitModul();
         }
     }
     catch (e) {
         daftar.push(buatModuleDefault());
-        simpanModul();
+        commitModul();
         console.log(e);
     }
 }
@@ -31,6 +30,7 @@ function buatModuleDefault(): IModulEntity {
     return {
         id: 0,
         nama: 'root',
+        indukId: -1,
         fungsi: [],
         anak: []
     }
@@ -46,20 +46,9 @@ export async function getModulById(id: number): Promise<IModulEntity> {
     return hasil;
 }
 
-export async function addModule(modul: IModulEntity): Promise<void> {
+export async function tambah(modul: IModulEntity): Promise<void> {
     daftar.push(modul);
-    simpanModul();
-}
-
-export function buatModule(nama: string): IModulEntity {
-    let modulBaru: IModulEntity = {
-        id: id(),
-        nama: nama,
-        anak: [],
-        fungsi: []
-    }
-
-    return modulBaru;
+    commitModul();
 }
 
 export async function loadModulByIdIn(ids: number[]): Promise<IModulEntity[]> {
@@ -77,7 +66,7 @@ export async function hapusModul(modul: IModulEntity): Promise<void> {
     daftar = daftar.filter((item) => {
         return (item.id != modul.id)
     });
-    simpanModul();
+    commitModul();
 }
 
 const table: string = 'ha.modul.modul';
@@ -85,7 +74,9 @@ const table: string = 'ha.modul.modul';
 let daftar: IModulEntity[] = [{
     id: 0,
     nama: 'root',
+    indukId: -1,
     fungsi: [],
     anak: []
 }];
+
 load();

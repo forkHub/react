@@ -1,6 +1,6 @@
 import { TDekFungsi } from "../entity/DekFungsi";
 import { id } from "../util/Id";
-import { getModulById } from "./ModulDao";
+import { getModulById } from "./ModulTable";
 
 export function simpanFungsi(): void {
     window.localStorage.setItem(table, JSON.stringify(daftar));

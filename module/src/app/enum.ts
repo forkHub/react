@@ -17,12 +17,13 @@ export enum EAction {
     MODUL_ENT_DIPILIH = 'modul_ent/dipilih',
     MODUL_ENT_DIHAPUS = 'modul_ent/dihapus',
     MODUL_ENT_DITAMBAH = 'modul_ent/ditambah',
+    MODUL_ENT_DIUPDATE = 'modul_ent/diupdate',
 
     FUNGSI_ENT_DIPILIH = 'fungsi_ent/dipilih',
 
-    MODUL_EDIT = 'modul/diedit',
-    MODUL_PILIH = 'modul/dipilih',
-    MODUL_SAMPLE = 'modul/sample',
+    MODUL_MODUL_EDIT = 'modul/modul/diedit',
+    MODUL_MODUL_PILIH = 'modul/modul/dipilih',
+    MODUL_SAMPLE_DIKLIK = 'modul/sample_tbl/klik',
 
     MODUL_EDIT_SELESAI = 'modul_edit/selesai',
     MODUL_EDIT_TAMBAH_FUNGSI = 'modul_edit/fungsi_ditambah',

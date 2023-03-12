@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import { Context, Dispatch } from "../../app/Provider";
 import { TData } from "../../app/Store";
-import { loadModulByIdIn } from "../../dao/ModulDao";
+import { loadModulByIdIn } from "../../dao/ModulTable";
 import { IModulEntity } from "../../entity/Module";
 import { pilihModul } from "./ModuleReducer";
 
@@ -23,7 +23,7 @@ export function Item({ modul }: { modul: IModulEntity }) {
         }).catch((e) => {
             console.log(e);
         });
-    }, [data])
+    }, [data.moduleEntityUpdateId])
 
     let itemAnak = anak.map((item: IModulEntity) => {
         return <Item key={item.id} modul={item}></Item>

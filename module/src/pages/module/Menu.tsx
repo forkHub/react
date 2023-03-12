@@ -2,11 +2,11 @@ import React, { useContext } from "react";
 import { editModul as editModulDispatch } from "./ModuleReducer";
 import { Context, Dispatch } from "../../app/Provider";
 import { EHal } from "../../app/enum";
-import { addModule, buatModule, hapusModul, simpanModul } from "../../dao/ModulDao";
-import { IModulEntity } from "../../entity/Module";
-import { mainPageUpdate } from "../main/MainPageReducer";
+import * as moduleEnt from "../../entity/Module";
+import { dispatchModulDiUpdate } from "../../entity/EntityReducer";
+import { TAction } from "../../app/Reducer";
 
-export function Menu({ parentModul }: { parentModul: IModulEntity }) {
+export function Menu({ parentModul }: { parentModul: moduleEnt.IModulEntity }) {
     let data = useContext(Context);
 
     return <>
@@ -23,22 +23,34 @@ export function Menu({ parentModul }: { parentModul: IModulEntity }) {
     </>
 }
 
-async function tambahModul(modul: IModulEntity, induk: IModulEntity) {
-    await (addModule(modul));
-    induk.anak.push(modul.id);
-    simpanModul();
+async function handleTambahModulKlik(induk: moduleEnt.IModulEntity, dispatch: React.Dispatch<TAction>) {
+    let nama: string = "test";
+
+    let modulBaru: moduleEnt.IModulEntity = moduleEnt.buatModule(nama, induk.id);
+    induk.anak.push(modulBaru.id);
+
+    await moduleEnt.simpan(modulBaru);
+    await moduleEnt.simpan(induk);
+    dispatchModulDiUpdate(dispatch);
 }
 
-function MenuModulAktif({ modul }: { modul: IModulEntity }) {
+async function handleModulDihapusKlik(modul: moduleEnt.IModulEntity, dispatch: React.Dispatch<TAction>): Promise<void> {
+    let ok: boolean = window.confirm('hapus modul ' + modul.nama);
+
+    if (ok) {
+        await moduleEnt.hapus(modul);
+        dispatchModulDiUpdate(dispatch);
+        //TODO: get parent
+    }
+}
+
+function MenuModulAktif({ modul }: { modul: moduleEnt.IModulEntity }) {
     let dispatch = useContext(Dispatch);
 
     return <>
         {modul && <>
             <button onClick={() => {
-                tambahModul(buatModule('test'), modul)
-                    .then(() => {
-                        mainPageUpdate(dispatch);
-                    })
+                handleTambahModulKlik(modul, dispatch)
                     .catch((e) => {
                         console.error(e);
                     });
@@ -49,15 +61,17 @@ function MenuModulAktif({ modul }: { modul: IModulEntity }) {
             }}> edit </button>
 
             <button onClick={() => {
-                hapusModul(modul)
-                    .then(() => {
-
-                    })
+                handleModulDihapusKlik(modul, dispatch)
                     .catch((e) => {
                         console.error(e);
                         throw Error()
                     });
             }}> hapus </button>
+
+            <button onClick={() => {
+                dispatchModulDiUpdate(dispatch);
+            }}> update Entity </button>
+
         </>}
     </>
 }

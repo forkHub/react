@@ -3,11 +3,10 @@ import { IModulEntity } from "../../entity/Module";
 import { TAction } from "../../app/Reducer";
 import React from "react";
 import { EAction, EHal } from "../../app/enum";
-import { addModule, getModulById, simpanModul } from "../../dao/ModulDao";
 
 export function pilihModul(dispatch: React.Dispatch<TAction>, modul: IModulEntity): void {
     dispatch({
-        type: EAction.MODUL_PILIH,
+        type: EAction.MODUL_MODUL_PILIH,
         modul: modul
     });
 }
@@ -19,23 +18,9 @@ function handleModuleDipilih(data: TData, modul: IModulEntity): TData {
     return data2;
 }
 
-// export function tambahModul(dispatch: React.Dispatch<TAction>): void {
-
-//     dispatch({
-//         type: EAction.MODUL_TAMBAH,
-//     });
-// }
-
-// function handleModuleDitambah(data: TData): TData {
-
-//     let data2: TData = clone(data);
-
-//     return data2;
-// }
-
 export function editModul(dispatch: React.Dispatch<TAction>) {
     dispatch({
-        type: EAction.MODUL_EDIT
+        type: EAction.MODUL_MODUL_EDIT
     });
 }
 
@@ -47,7 +32,7 @@ function handleModuleDiedit(data: TData): TData {
 
 export function sampleKlik(dispatch: React.Dispatch<TAction>) {
     dispatch({
-        type: EAction.MODUL_SAMPLE
+        type: EAction.MODUL_SAMPLE_DIKLIK
     })
 }
 
@@ -63,13 +48,13 @@ export function ModuleReducer(data: TData, action: TAction): TData {
     console.log(action);
 
     switch (action.type) {
-        case EAction.MODUL_EDIT: {
+        case EAction.MODUL_MODUL_EDIT: {
             return handleModuleDiedit(data);
         }
-        case EAction.MODUL_PILIH: {
+        case EAction.MODUL_MODUL_PILIH: {
             return handleModuleDipilih(data, action.modul);
         }
-        case EAction.MODUL_SAMPLE: {
+        case EAction.MODUL_SAMPLE_DIKLIK: {
             return handleSampleKlik(data);
         }
         default: {

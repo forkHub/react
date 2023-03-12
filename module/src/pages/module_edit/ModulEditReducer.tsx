@@ -3,7 +3,6 @@ import { EAction, EHal } from "../../app/enum";
 import { TAction, } from "../../app/Reducer";
 import { TData, clone } from "../../app/Store";
 import { addFungsi, buatFungsi, simpanFungsi } from "../../dao/FungsiDao";
-import { simpanModul } from "../../dao/ModulDao";
 import { TDekFungsi } from "../../entity/DekFungsi";
 import { IModulEntity } from "../../entity/Module";
 
@@ -23,7 +22,7 @@ function handleEditModuleSelesai(data: TData): TData {
     return data2;
 }
 
-export function tambahFungsi(dispatch: React.Dispatch<TAction>, induk: IModulEntity) {
+export function dispatchFungsiDitambah(dispatch: React.Dispatch<TAction>, induk: IModulEntity) {
     console.log('tambah fungsi');
 
     dispatch({
@@ -33,12 +32,13 @@ export function tambahFungsi(dispatch: React.Dispatch<TAction>, induk: IModulEnt
     });
 }
 
-function handleTambahFungsi(data: TData, fungsi: TDekFungsi, induk: IModulEntity): TData {
+//TODO: refaktor
+function handleFungsiDitambah(data: TData, fungsi: TDekFungsi, induk: IModulEntity): TData {
     let data2: TData = clone(data);
 
     addFungsi(fungsi);
     induk.fungsi.push(fungsi.id);
-    simpanModul();
+    // simpanModul();
     simpanFungsi();
 
     return data2;
@@ -50,7 +50,7 @@ export function EditModuleReducer(data: TData, action: TAction): TData {
             return handleEditModuleSelesai(data);
         }
         case EAction.MODUL_EDIT_TAMBAH_FUNGSI: {
-            return handleTambahFungsi(data, action.fungsi, action.modul);
+            return handleFungsiDitambah(data, action.fungsi, action.modul);
         }
         default: {
             console.log(action.type);

@@ -1,0 +1,2 @@
+none => loading => ok    => none
+                => error => none        

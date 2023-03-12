@@ -1,13 +1,15 @@
 import { TDekFungsi } from "../../entity/DekFungsi";
 import React, { useContext } from 'react';
 import { DekFungsi } from "./DekFungsi";
-import { tambahFungsi } from "./ModulEditReducer";
+import { dispatchFungsiDitambah } from "./ModulEditReducer";
 import { Dispatch } from "../../app/Provider";
 import { TAction } from "../../app/Reducer";
 import { IModulEntity } from "../../entity/Module";
 
 function handleTambahKlik(dispatch: React.Dispatch<TAction>, induk: IModulEntity) {
-    tambahFungsi(dispatch, induk)
+    //TODO: tambah fungsi
+
+    dispatchFungsiDitambah(dispatch, induk)
 }
 
 export function DekFungList({ list, modul }: { list: TDekFungsi[], modul: IModulEntity }) {
