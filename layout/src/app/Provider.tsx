@@ -1,7 +1,7 @@
 import React, { createContext } from 'react';
 import { useReducer } from "react";
 import { getDef, TData } from './Store';
-import { TAction, Reducer } from './Reducer';
+import { TAction, Reducer } from './MainReducer';
 
 export const Context: React.Context<TData> = createContext(getDef());
 export const Dispatch: React.Context<React.Dispatch<TAction>> = createContext(null);

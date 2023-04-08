@@ -1,5 +1,7 @@
 * {
     box-sizing: border-box;
+    padding: 0px;
+    margin: 0px;
 }
 
 .pad-left-4 {
@@ -16,4 +18,8 @@
 
 .border {
     border: 1px solid;
+}
+
+button {
+    padding: 4px;
 }

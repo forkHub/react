@@ -1,18 +1,19 @@
-import { ITag } from "../pages/HalDepan";
+import { ITag } from "../entities";
 import { tagService } from "../service/TagService";
 import { EHal } from "./enum";
 
 export type TData = {
-    hal: EHal,
-    id: number;
-    idModulAktif: number;
-    idFungsiAktif: number;
-    moduleEntityUpdateId: number;
+    // id: number;
+    // idModulAktif: number;
+    // idFungsiAktif: number;
+    // moduleEntityUpdateId: number;
+    // tagReload: boolean;
 
     idTagAktif: number,
-    idTagTambahAnak: number,
+    idTagDitambahAnak: number,
+    idTagBaru: number,
     body: ITag;
-    tagReload: boolean;
+    hal: EHal,
 }
 
 export function getDef(): TData {
@@ -20,18 +21,18 @@ export function getDef(): TData {
 }
 
 export function clone(data: TData): TData {
-    data.body = tagService.getBody();
     return JSON.parse(JSON.stringify(data));
 }
 
 let defData: TData = {
-    hal: EHal.TAG,
-    id: 0,
-    idModulAktif: 0,
-    idFungsiAktif: 0,
-    moduleEntityUpdateId: 0,
+    hal: EHal.TAG_TREE,
+    // id: 0,
+    // idModulAktif: 0,
+    // idFungsiAktif: 0,
+    // moduleEntityUpdateId: 0,
     idTagAktif: 0,
-    idTagTambahAnak: 0,
+    idTagDitambahAnak: 0,
+    idTagBaru: 0,
     body: tagService.getBody(),
-    tagReload: true
+    // tagReload: true,
 }

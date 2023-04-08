@@ -1,18 +1,38 @@
-import { ITag } from "../pages/HalDepan";
+import { ITag } from "../entities";
 import { id } from "../util/Id";
 
-const body: ITag = {
+let table: string = 'tagdb';
+
+const def: ITag = {
     id: id(),
     nama: 'body',
     anak: []
 };
 
 class TagService {
-    getBody(): ITag {
-        return body;
+    private body: ITag;
+
+    private load(): ITag {
+        try {
+            this.body = JSON.parse(window.localStorage.getItem(table));
+            return this.body;
+        } catch (e) {
+            console.groupCollapsed('error');
+            console.warn(e);
+            console.groupEnd();
+
+            this.body = def;
+            this.simpan();
+            return this.body;
+        }
     }
 
-    getById(tag: ITag, id: number): ITag {
+    private simpan(): void {
+        let tagDb: string = JSON.stringify(this.body);
+        window.localStorage.setItem('tagdb', tagDb);
+    }
+
+    private getByIdByTag(tag: ITag, id: number): ITag {
         let hasil: ITag;
 
         //cari di tag
@@ -22,22 +42,29 @@ class TagService {
         for (let i: number = 0; i < tag.anak.length; i++) {
             let tagItem: ITag = tag.anak[i];
 
-            hasil = this.getById(tagItem, id);
+            hasil = this.getByIdByTag(tagItem, id);
             if (hasil) return hasil;
         }
 
         return hasil;
     }
 
-    getAnakById(induk: ITag, id: number) {
-        return induk.anak.find((item) => {
-            return item.id == id
-        })
+    tambahAnak(tag: ITag, indukId: number): void {
+        this.load();
+        let indukTag: ITag = this.getByIdByTag(this.body, indukId);
+        indukTag.anak.push(tag);
+        this.simpan();
     }
 
-    tambah(tag: ITag, indukId: number): void {
-        let indukTag: ITag = this.getById(body, indukId);
-        indukTag.anak.push(tag);
+    getBody(): ITag {
+        this.load();
+        return this.body;
+    }
+
+    getAnak(indukId: number): ITag[] {
+        this.load();
+        let induk: ITag = this.getByIdByTag(this.body, indukId);
+        return induk.anak;
     }
 }
 

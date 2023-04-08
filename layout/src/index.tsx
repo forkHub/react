@@ -1,6 +1,7 @@
 import { createRoot, Root } from 'react-dom/client';
 import React from 'react';
 import "./css/css.css";
+import "./css/layout.css";
 import { Provider } from './app/Provider';
 import { HalDepan } from './pages/HalDepan';
 

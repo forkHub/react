@@ -1,13 +1,11 @@
-import React from "react";
-import { TAction } from "./Reducer";
+import { ITag } from "../entities";
+import { tagService } from "../service/TagService";
+import { TAction } from "./MainReducer";
 import { TData, clone } from "./Store";
 import { EAction } from "./enum";
-import { ITag } from "../pages/HalDepan";
-import { tagService } from "../service/TagService";
 
-class Reducer {
+class TagReducer {
     reduce(data: TData, action: TAction): TData {
-        console.log('reducer 2 ' + action.type);
         if (action.type == EAction.TAG_DIPILIH) {
             return this.tagDipilih(data, action.payload.id)
         }
@@ -35,35 +33,16 @@ class Reducer {
     private anakDitambah(data: TData, tag: ITag, indukId: number): TData {
         let data2: TData;
 
-        console.log('tag anak ditambah');
-        tagService.tambah(tag, indukId);
+        // console.log('tag anak ditambah');
+        tagService.tambahAnak(tag, indukId);
 
         data2 = clone(data);
-        data2.idTagTambahAnak = indukId;
+        data2.body = tagService.getBody();
+        data2.idTagDitambahAnak = indukId;
+        data2.idTagBaru = tag.id;
 
         return data2;
     }
-
-    // //diganti jadi reload
-    // tambahTag(dispatch: React.Dispatch<TAction>, tag: ITag): void {
-    //     dispatch({
-    //         type: EAction.TAG_DITAMBAH,
-    //         payload: {
-    //             tag: tag
-    //         }
-    //     })
-    // }
-
-    // //diganti jadi reload
-    // private tagDitambah(data: TData, tag: ITag): TData {
-    //     let data2: TData = clone(data);
-
-    //     console.log('tag ditambah');
-    //     // data2.body.push(tag);
-    //     //TODO:
-
-    //     return data2;
-    // }
 
     hapusTag(dispatch: React.Dispatch<TAction>, id: number): void {
         console.log('hapus tag');
@@ -82,7 +61,7 @@ class Reducer {
         //TODO:
         id;
 
-        console.log('tag dihapus');
+        // console.log('tag dihapus');
 
         return data2;
     }
@@ -100,13 +79,9 @@ class Reducer {
         let data2: TData = clone(data);
 
         data2.idTagAktif = id;
-        data2.idTagTambahAnak = id;
-
-        console.log('tag dipilih ' + id);
-        console.log(data2);
 
         return data2;
     }
 }
 
-export const reducer2: Reducer = new Reducer();
+export const tagReducer: TagReducer = new TagReducer();
