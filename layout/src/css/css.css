@@ -4,12 +4,34 @@
     margin: 0px;
 }
 
-.pad-left-4 {
-    padding-left: 8px;
+.pd-8 {
+    padding: 8px;
+}
+
+.pad-left-4,
+.pd-left-4 {
+    padding-left: 4px;
+}
+
+.pd-left-16 {
+    padding-left: 16px;
+}
+
+
+.height-12 {
+    height: 100%;
 }
 
 .disp-flex {
     display: flex;
+}
+
+.flex-dir-col {
+    flex-direction: column;
+}
+
+.flex-dir-row {
+    flex-direction: row;
 }
 
 .flex-grow-1 {

@@ -34,6 +34,10 @@ body,
     padding: 4px;
 }
 
+.menu-atas .menu-item.menu-aktif {
+    outline: 2px solid;
+}
+
 .hal-tengah {
     flex-grow: 1;
     padding: 8px;
@@ -47,4 +51,47 @@ body,
 .menu-bawah {
     padding: 8px;
     border: 1px solid;
+}
+
+.hal-pilih-element {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.hal-pilih-element .tag-list {
+    flex-grow: 1;
+    border: 1px solid;
+    padding: 8px;
+    border-bottom: none;
+    border-top: none;
+}
+
+.hal-pilih-element .tag.dipilih {
+    outline: 2px solid;
+    outline-offset: -2px;
+}
+
+.hal-tag .tag-list {
+    border: 1px solid;
+    border-top: none;
+    font-family: monospace;
+}
+
+.tag {
+    cursor: pointer;
+    user-select: none;
+}
+
+.tag-item {
+    font-weight: 400;
+}
+
+.tag-item.dipilih > .tag {
+    font-weight: 900;
+    border: 1px solid;
+}
+
+.tag-item.dipilih > .anak > .tag-item {
+    font-weight: 900;
 }

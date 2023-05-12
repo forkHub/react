@@ -12,5 +12,7 @@ export enum EAction {
     TAG_ANAK_DITAMBAH = 'etc/tag_anak_ditambah',
 
     HAL_DIPILIH = 'hal/hal_dipilih',
+
+    CALLBACK = 'callback/callback'
 }
 

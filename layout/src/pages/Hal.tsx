@@ -1,24 +1,24 @@
 import React, { useContext } from 'react';
-import { Context, Dispatch } from '../app/Provider';
+import { Context } from '../app/Provider';
 import { TData } from '../app/Store';
-import { pageReducer } from '../app/PageReducer';
+// import { pageReducer } from '../app/PageReducer';
 import { EHal } from '../app/enum';
-import { TagTree } from './Tag';
-import { PilihElement } from './PilihElement';
-import { tagReducer } from '../app/TagReducer';
-import { Preview } from './Preview';
+import { PilihElement } from './pilihElement/PilihElement';
+// import { tagReducer } from '../app/TagReducer';
+import { Preview } from './preview/Preview';
 import { MenuAtas, MenuBawah } from './Menu';
+import { HalTag } from './tagTree/Tag';
 
 function Tengah() {
     const data: TData = useContext(Context);
 
-    if (data.hal == EHal.TAG_TREE) {
-        return <TagTree />
+    if (data.halAktif == EHal.TAG_TREE) {
+        return <HalTag />
     }
-    else if (data.hal == EHal.ELM) {
+    else if (data.halAktif == EHal.ELM) {
         return <PilihElement />
     }
-    else if (data.hal == EHal.PREV) {
+    else if (data.halAktif == EHal.PREV) {
         return <Preview />
     }
     else {
@@ -60,16 +60,26 @@ function Tengah() {
 
 export function HalDepan() {
     const data: TData = useContext(Context);
+    let hasil: JSX.Element;
 
-    let elm = <>
-        <div className='hal-tag'>
-            <MenuAtas />
-            <div className='hal-tengah'>
-                <Tengah />
+    if (data.halAktif == EHal.ELM) {
+        // console.debug('render hal pilih element');
+        hasil = <><PilihElement /></>
+    }
+    else if (data.halAktif == EHal.TAG_TREE) {
+        hasil = <HalTag />
+    }
+    else {
+        hasil = <>
+            <div className='hal-tag'>
+                <MenuAtas />
+                <div className='hal-tengah'>
+                    <Tengah />
+                </div>
+                <MenuBawah />
             </div>
-            <MenuBawah />
-        </div>
-    </>
+        </>
+    }
 
-    return elm;
+    return hasil;
 }

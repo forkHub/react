@@ -1,32 +1,55 @@
 import React, { useContext } from 'react';
-import { pageReducer } from '../app/PageReducer';
-import { Context, Dispatch } from '../app/Provider';
+// import { pageReducer } from '../app/PageReducer';
+import { Context, Dispatcher } from '../app/Provider';
 import { TData } from '../app/Store';
 import { EHal } from '../app/enum';
-import { tagReducer } from '../app/TagReducer';
+// import { tagReducer } from '../app/TagReducer';
 
 export function MenuAtas() {
     const data: TData = useContext(Context);
-    const dispatch = useContext(Dispatch);
+    const dispatcher = useContext(Dispatcher);
+
+    function checkHalAktif(hal: string): string {
+        return (data.halAktif == hal ? ' menu-item menu-aktif ' : ' menu-item ');
+    }
 
     return <div className='menu-atas'>
-        <button className='menu-item' onClick={() => {
-            pageReducer.pilihHal(dispatch, EHal.PREV)
+        <button className={checkHalAktif(EHal.PREV)} onClick={() => {
+
+            // pageReducer.pilihHal(dispatch, EHal.PREV);
+
+            dispatcher((data2: TData): TData => {
+                data2.halAktif = EHal.PREV;
+                return data2;
+            });
+
         }}>preview</button>
 
-        <button className='menu-item' onClick={() => {
-            pageReducer.pilihHal(dispatch, EHal.TAG_TREE)
+        <button className={checkHalAktif(EHal.TAG_TREE)} onClick={() => {
+
+            dispatcher((data2: TData): TData => {
+                data2.halAktif = EHal.TAG_TREE;
+                return data2;
+            });
+
+            // pageReducer.pilihHal(dispatch, EHal.TAG_TREE)
+
         }}>tree</button>
 
-        <button className='menu-item' onClick={() => {
-            pageReducer.pilihHal(dispatch, EHal.ELM)
+        <button className={checkHalAktif(EHal.ELM)} onClick={() => {
+            // pageReducer.pilihHal(dispatch, EHal.ELM);
+
+            dispatcher((data2: TData): TData => {
+                data2.halAktif = EHal.ELM;
+                return data2;
+            });
+
         }}>elm</button>
-    </div>
+    </div >
 }
 
 export function MenuBawah() {
     const data: TData = useContext(Context);
-    const dispatch = useContext(Dispatch);
 
     return <div className='menu-bawah'>
         <MenuKondisi />
@@ -35,24 +58,23 @@ export function MenuBawah() {
 
 function MenuKondisi() {
     const data: TData = useContext(Context);
-    const dispatch = useContext(Dispatch);
 
-    if (data.hal == EHal.ELM) {
+    if (data.halAktif == EHal.ELM) {
+        return <>
+            <button onClick={() => {
+                // tagReducer.hapusTag(dispatch, data.idTagAktif);
+            }}>tambahkan</button>
+        </>
+    }
+    else if (data.halAktif == EHal.PREV) {
         return <></>
     }
-    else if (data.hal == EHal.PREV) {
-        return <></>
-    }
-    else if (data.hal == EHal.TAG_TREE) {
+    else if (data.halAktif == EHal.TAG_TREE) {
         return <button onClick={() => {
-            tagReducer.hapusTag(dispatch, data.idTagAktif);
+            //TODO:
         }}>hapus</button>
     }
     else {
         throw Error('');
     }
-}
-
-function MenuPilihElm() {
-
 }

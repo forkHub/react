@@ -1,87 +1,87 @@
-import { ITag } from "../entities";
-import { tagService } from "../service/TagService";
-import { TAction } from "./MainReducer";
-import { TData, clone } from "./Store";
-import { EAction } from "./enum";
+// import { TAction } from "./Reducer";
+// import { TData, clone } from "./Store";
+// import { EAction } from "./enum";
 
-class TagReducer {
-    reduce(data: TData, action: TAction): TData {
-        if (action.type == EAction.TAG_DIPILIH) {
-            return this.tagDipilih(data, action.payload.id)
-        }
-        else if (action.type == EAction.TAG_DIHAPUS) {
-            return this.tagDihapus(data, action.payload.id);
-        }
-        else if (action.type == EAction.TAG_ANAK_DITAMBAH) {
-            return this.anakDitambah(data, action.payload.tag, action.payload.indukId);
-        }
-        else {
-            throw Error('');
-        }
-    }
+// class TagReducer {
+//     // reduce(data: TData, action: TAction): TData {
+//     //     if (action.type == EAction.TAG_DIPILIH) {
+//     //         // return this.tagDipilih(data, action.payload.id)
+//     //     }
+//     //     else if (action.type == EAction.TAG_DIHAPUS) {
+//     //         return this.tagDihapus(data, action.payload.id);
+//     //     }
+//     //     // else if (action.type == EAction.TAG_ANAK_DITAMBAH) {
+//     //     //     return this.anakDitambah(data, action.payload.tag, action.payload.indukId);
+//     //     // }
+//     //     else {
+//     //         throw Error('');
+//     //     }
+//     // }
 
-    tambahAnak(dispatch: React.Dispatch<TAction>, tag: ITag, indukId: number): void {
-        dispatch({
-            type: EAction.TAG_ANAK_DITAMBAH,
-            payload: {
-                tag: tag,
-                indukId: indukId
-            }
-        })
-    }
+//     // tambahAnak(dispatch: React.Dispatch<TAction>, tag: ITag, indukId: number): void {
+//     //     console.debug('dispatch tambah anak');
+//     //     tagService.tambahAnak(tag, indukId);
 
-    private anakDitambah(data: TData, tag: ITag, indukId: number): TData {
-        let data2: TData;
+//     //     dispatch({
+//     //         type: EAction.TAG_ANAK_DITAMBAH,
+//     //         payload: {
+//     //             tag: tag,
+//     //             indukId: indukId
+//     //         }
+//     //     })
+//     // }
 
-        // console.log('tag anak ditambah');
-        tagService.tambahAnak(tag, indukId);
+//     // private anakDitambah(data: TData, tag: ITag, indukId: number): TData {
+//     //     let data2: TData;
 
-        data2 = clone(data);
-        data2.body = tagService.getBody();
-        data2.idTagDitambahAnak = indukId;
-        data2.idTagBaru = tag.id;
+//     //     console.log('tag anak ditambah');
 
-        return data2;
-    }
+//     //     data2 = clone(data);
+//     //     data2.body = tagService.getBody();
+//     //     data2.idTagDitambahAnak = indukId;
+//     //     data2.idTagBaru = tag.id;
 
-    hapusTag(dispatch: React.Dispatch<TAction>, id: number): void {
-        console.log('hapus tag');
-        dispatch({
-            type: EAction.TAG_DIHAPUS,
-            payload: {
-                id: id
-            }
-        });
-    }
+//     //     return data2;
+//     // }
 
-    private tagDihapus(data: TData, id: number): TData {
-        let data2: TData = clone(data);
+//     hapusTag(dispatch: React.Dispatch<TAction>, id: number): void {
+//         console.log('hapus tag');
+//         dispatch({
+//             type: EAction.TAG_DIHAPUS,
+//             payload: {
+//                 id: id
+//             }
+//         });
+//     }
 
-        // data.idTagAktif = id;
-        //TODO:
-        id;
+//     private tagDihapus(data: TData, id: number): TData {
+//         let data2: TData = clone(data);
 
-        // console.log('tag dihapus');
+//         // data.idTagAktif = id;
+//         //TODO:
+//         id;
 
-        return data2;
-    }
+//         // console.log('tag dihapus');
 
-    pilihTag(dispatch: React.Dispatch<TAction>, id: number): void {
-        dispatch({
-            type: EAction.TAG_DIPILIH,
-            payload: {
-                id: id
-            }
-        });
-    }
+//         return data2;
+//     }
 
-    private tagDipilih(data: TData, id: number): TData {
-        let data2: TData = clone(data);
+//     // pilihTag(dispatch: React.Dispatch<TAction>, id: number): void {
+//     //     dispatch({
+//     //         type: EAction.TAG_DIPILIH,
+//     //         payload: {
+//     //             id: id
+//     //         }
+//     //     });
+//     // }
 
-        data2.idTagAktif = id;
+//     // private tagDipilih(data: TData, id: number): TData {
+//     //     let data2: TData = clone(data);
 
-        return data2;
-    }
-}
+//     //     data2.idTagAktif = id;
 
-export const tagReducer: TagReducer = new TagReducer();
+//     //     return data2;
+//     // }
+// }
+
+// export const tagReducer: TagReducer = new TagReducer();

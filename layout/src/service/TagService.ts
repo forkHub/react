@@ -6,7 +6,11 @@ let table: string = 'tagdb';
 const def: ITag = {
     id: id(),
     nama: 'body',
-    anak: []
+    anak: [],
+    teks: '',
+    idAttr: "",
+    classAttr: [],
+    styleAttr: []
 };
 
 class TagService {
@@ -14,6 +18,9 @@ class TagService {
 
     private load(): ITag {
         try {
+            let str: string = window.localStorage.getItem(table);
+            if (!str) throw Error('');
+
             this.body = JSON.parse(window.localStorage.getItem(table));
             return this.body;
         } catch (e) {
@@ -49,9 +56,21 @@ class TagService {
         return hasil;
     }
 
+    getById(id: number): ITag {
+        let hasil: ITag = this.getByIdByTag(this.body, id);
+
+        if (!hasil) {
+            console.warn('id tidak ketemu', id);
+        }
+
+        return hasil;
+    }
+
     tambahAnak(tag: ITag, indukId: number): void {
+        console.debug('tambah anak: ', tag);
         this.load();
         let indukTag: ITag = this.getByIdByTag(this.body, indukId);
+        // debugger;
         indukTag.anak.push(tag);
         this.simpan();
     }
