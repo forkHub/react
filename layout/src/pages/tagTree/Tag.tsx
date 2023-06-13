@@ -1,53 +1,75 @@
 import React, { useContext, useState, useEffect } from "react";
 import { Context, Dispatcher } from "../../app/Provider";
-import { TData, clone } from "../../app/Store";
+import { TData } from "../../app/Store";
 import { ITag } from "../../entities";
 import { tagService } from "../../service/TagService";
-// import { tagReducer } from "../../app/TagReducer";
-// import { EAction } from "../../app/enum";
-import { MenuAtas } from "../Menu";
+import { MenuAtas, MenuStandard } from "../Menu";
+import { EHal } from "../../app/enum";
+import { EditTag } from "../classCrud/EditTag";
 
-function Tag({ tag }: { tag: ITag }) {
-    const data: TData = useContext(Context);
-    // const dispatch = useContext(Dispatch);
-    const dispatcher = useContext(Dispatcher);
-    const [anak, setAnak]: [ITag[], any] = useState([]);
+function TagInfo({ tag }: { tag: ITag }) {
+    const dispatch = useContext(Dispatcher);
+
+    function getNamaClass(): string {
+        return `class="${tag.class}"`;
+    }
+
+    function getNamaTag(): string {
+        return tag.nama;
+    }
+
+    function getTeks(): string {
+        return "";
+    }
 
     function tagKlik(tag: ITag) {
-
-        // tagReducer.pilihTag(dispatch, tag.id);
-        dispatcher((data2: TData): TData => {
+        dispatch((data2: TData): TData => {
             data2.idTagAktif = tag.id;
             return data2;
         })
     }
 
-    function getNamaTeks(): string {
-        if (tag.teks && tag.teks != '') return 'teks: ' + tag.teks;
-        return "<" + tag.nama + ">";
-    }
+    return <div
+        className="disp-flex tag deskripsi"
+        onClick={() => { tagKlik(tag); }}>
+        {"<"}{getNamaTag()} {getNamaClass()}{">"}{getTeks()}
+    </div>
+
+}
+
+function TagAnak({ anak }: { anak: ITag[] }) {
+    let itemAnak = anak.map((item: ITag) => {
+        return <TagEl key={item.id} tag={item}></TagEl>
+    });
+
+    return <div className="pd-left-16 anak ">{itemAnak}</div>
+}
+
+function TagEl({ tag }: { tag: ITag }) {
+    const data: TData = useContext(Context);
+    const [anak, setAnak]: [ITag[], any] = useState([]);
 
     useEffect(() => {
         setAnak(tagService.getAnak(tag.id));
     }, []);
 
-    let itemAnak = anak.map((item: ITag) => {
-        return <Tag key={item.id} tag={item}></Tag>
-    });
+    if (tag.nama == "teks") {
+        return <div className="tag-teks">{tag.teks}</div>
+    }
 
     return <>
         <div className={"tag-item " + (data.idTagAktif == tag.id ? " dipilih " : "")}>
-            <div
-                className={"disp-flex tag "}
-                onClick={() => { tagKlik(tag); }}>
-                {getNamaTeks()}
+            <TagInfo tag={tag} />
+            <TagAnak anak={anak} />
+            <div>
+                {`</${tag.nama}>`}
             </div>
-            <div className="pd-left-16 anak ">{itemAnak}</div>
         </div >
     </>
 }
 
 function MenuBawah() {
+    const dispatch = useContext(Dispatcher);
 
     return <>
         <div>
@@ -55,11 +77,22 @@ function MenuBawah() {
                 // tagReducer.hapusTag(dispatch, data.idTagAktif);
                 //TODO:
             }}>hapus</button>
+
+            <button onClick={() => {
+                dispatch((data: TData): TData => {
+                    data.halAktif = EHal.EDIT_TAG_ATR;
+                    return data;
+                })
+            }}>
+                edit atribut
+            </button>
+
+            <MenuStandard />
         </div>
     </>
 }
 
-function TagTree() {
+function TagBody() {
     const data: TData = useContext(Context);
     const [body, setBody]: [ITag, any] = useState(null);
     const dispatcher = useContext(Dispatcher);
@@ -87,18 +120,34 @@ function TagTree() {
     }, [])
 
     return <>
-        {body && <Tag tag={body} key={body.id} />}
+        {body && <TagEl tag={body} key={body.id} />}
     </>
 }
 
-export function HalTag() {
+function HalTag() {
     return <>
         <div className="hal-tag disp-flex flex-dir-col height-12">
             <MenuAtas />
             <div className="tag-list flex-grow-1 pd-8">
-                <TagTree />
+                <TagBody />
             </div>
             <MenuBawah />
         </div>
     </>
+}
+
+export function TagRouter({ hal }: { hal: EHal }) {
+
+    //TODO: kondisi
+    if (hal == EHal.TAG_TREE) {
+        return <HalTag />
+    }
+    else if (hal == EHal.EDIT_TAG_ATR) {
+        return <EditTag />
+    }
+    else {
+        return <></>
+        console.warn('hal tidak valid ' + hal);
+    }
+
 }

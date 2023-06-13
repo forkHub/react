@@ -22,6 +22,7 @@ function MenuBawah() {
             const tagBaru: ITag = {
                 anak: [],
                 id: id(),
+                class: '',
                 nama: data.hal2.daftarElement.elDipilih,
                 teks: data.hal2.daftarElement.teks,
                 classAttr: [],

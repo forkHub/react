@@ -1,4 +1,4 @@
-import { ITag } from "../entities";
+import { ITag, Ikv } from "../entities";
 import { id } from "../util/Id";
 
 let table: string = 'tagdb';
@@ -6,12 +6,31 @@ let table: string = 'tagdb';
 const def: ITag = {
     id: id(),
     nama: 'body',
+    class: '',
     anak: [],
     teks: '',
     idAttr: "",
+    attr: [],
     classAttr: [],
     styleAttr: []
 };
+
+export class Tag implements ITag {
+    id: number;
+    nama: string = '';
+    class: string = '';
+    readonly anak: ITag[] = [];
+    teks: string = '';
+    idAttr: string = '';
+    readonly attr: Ikv[];
+
+    classAttr: string[] = [];
+    styleAttr: string[] = [];
+
+    constructor() {
+        this.id = id();
+    }
+}
 
 class TagService {
     private body: ITag;
@@ -34,7 +53,7 @@ class TagService {
         }
     }
 
-    private simpan(): void {
+    simpan(): void {
         let tagDb: string = JSON.stringify(this.body);
         window.localStorage.setItem('tagdb', tagDb);
     }

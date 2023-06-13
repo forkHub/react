@@ -3,6 +3,7 @@ import { Context } from '../../app/Provider';
 import { TData } from '../../app/Store';
 import { ITag } from '../../entities';
 import { tagService } from '../../service/TagService';
+import "../../css/preview.css";
 
 function tag2Html(tag: ITag): string {
     let anak: string = '';
@@ -54,7 +55,7 @@ export function Preview() {
 
 
     return <>
-        <iframe ref={iframe}>
+        <iframe className="preview" ref={iframe}>
         </iframe>
     </>
 }

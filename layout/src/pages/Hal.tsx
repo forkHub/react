@@ -7,13 +7,14 @@ import { PilihElement } from './pilihElement/PilihElement';
 // import { tagReducer } from '../app/TagReducer';
 import { Preview } from './preview/Preview';
 import { MenuAtas, MenuBawah } from './Menu';
-import { HalTag } from './tagTree/Tag';
+import { TagRouter } from './tagTree/Tag';
+import { HalClassRouter } from './classCrud/HalClass';
 
 function Tengah() {
     const data: TData = useContext(Context);
 
     if (data.halAktif == EHal.TAG_TREE) {
-        return <HalTag />
+        return <></> //TODO: dihapus
     }
     else if (data.halAktif == EHal.ELM) {
         return <PilihElement />
@@ -58,16 +59,31 @@ function Tengah() {
 //     </div>
 // }
 
+function getTag(tag: string): string {
+    let idx: number = tag.indexOf('/');
+    if (idx < 0) return '';
+
+    return tag.slice(0, idx);
+}
+
 export function HalDepan() {
     const data: TData = useContext(Context);
     let hasil: JSX.Element;
+    let tag = getTag(data.halAktif);
+
+    if (tag == 'class') {
+        return <HalClassRouter />
+    }
+    else if (tag == 'tag') {
+        return <TagRouter hal={data.halAktif} />
+    }
 
     if (data.halAktif == EHal.ELM) {
         // console.debug('render hal pilih element');
         hasil = <><PilihElement /></>
     }
-    else if (data.halAktif == EHal.TAG_TREE) {
-        hasil = <HalTag />
+    else if (data.halAktif == EHal.CLASS_MANAGER) {
+        hasil = <HalClassRouter />
     }
     else {
         hasil = <>

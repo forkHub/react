@@ -56,6 +56,19 @@ export function MenuBawah() {
     </div>
 }
 
+export function MenuStandard() {
+    const dispatcher = useContext(Dispatcher);
+
+    return <>
+        <button onClick={() => {
+            dispatcher((data2: TData) => {
+                data2.halAktif = EHal.CLASS_MANAGER;
+                return data2;
+            });
+        }}>class</button>
+    </>
+}
+
 function MenuKondisi() {
     const data: TData = useContext(Context);
 
@@ -70,9 +83,7 @@ function MenuKondisi() {
         return <></>
     }
     else if (data.halAktif == EHal.TAG_TREE) {
-        return <button onClick={() => {
-            //TODO:
-        }}>hapus</button>
+        return <MenuStandard />
     }
     else {
         throw Error('');

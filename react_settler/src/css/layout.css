@@ -78,22 +78,17 @@ body,
     font-family: monospace;
 }
 
-.tag-deskripsi {
+.tag {
     cursor: pointer;
     user-select: none;
 }
 
 .tag-item {
-    cursor: pointer;
-}
-
-.tag-item, .tag-teks {
     font-weight: 400;
-    cursor: pointer;
 }
 
-.tag-item.dipilih {
-    /* font-weight: 900; */
+.tag-item.dipilih > .tag {
+    font-weight: 900;
     border: 1px solid;
 }
 

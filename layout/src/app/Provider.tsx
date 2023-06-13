@@ -1,7 +1,7 @@
 import React, { createContext } from 'react';
 import { useReducer } from "react";
 import { TData, clone, getDef } from './Store';
-import { TAction, Reducer } from './Reducer';
+import { Reducer } from './Reducer';
 import { EAction } from './enum';
 
 export const Context: React.Context<TData> = createContext(getDef());
@@ -12,7 +12,7 @@ export function Provider({ children }: any) {
     const [data, dispatchFunc] = useReducer(Reducer, getDef());
 
     const dispatch = (reducer: (data: TData) => TData) => {
-        console.group('dispatcher');
+        // console.group('dispatcher');
 
         // dispatchFunc(createAction(data, reducer));
         dispatchFunc(
@@ -24,7 +24,7 @@ export function Provider({ children }: any) {
                 }
             }
         );
-        console.groupEnd();
+        // console.groupEnd();
     }
 
     return <>

@@ -1,13 +1,11 @@
-import { ITag } from "../entities";
-import { tagService } from "../service/TagService";
 import { EHal } from "./enum";
 
 export type TData = {
     idTagAktif: number,
     idTagDitambahAnak: number,
     idTagBaru: number,
-    // body: ITag;
     halAktif: EHal,
+    idClass: number,
 
     hal2: {
         daftarElement: {
@@ -38,5 +36,6 @@ let defData: TData = {
             elDipilih: "",
             teks: '',
         }
-    }
+    },
+    idClass: 0
 }

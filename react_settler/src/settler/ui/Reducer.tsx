@@ -1,8 +1,7 @@
-import { TData } from "./Store";
-import { EAction } from "./enum";
+import { TStore } from "./Store";
 
 export type TAction = {
-    type: EAction,
+    type: "callback/callback",
     payload?: any;
 }
 
@@ -14,18 +13,9 @@ export function Reducer(data: any, action: TAction): any {
     let tag: string = getTag(action.type);
 
     switch (tag) {
-        // case "etc": {
-        //     // console.log(tag);
-        //     return tagReducer.reduce(data, action);
-        //     break;
-        // }
         case "callback": {
-            let hasil: TData;
-
-            // console.group('Reducer execute callbacktag');
+            let hasil: TStore;
             hasil = action.payload();
-            // console.groupEnd();
-
             return hasil
             break;
         }

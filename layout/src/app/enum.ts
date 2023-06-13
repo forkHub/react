@@ -1,7 +1,11 @@
 export enum EHal {
-    TAG_TREE = 'tag tree viewer',
+    TAG_TREE = 'tag/tag tree viewer',
+    EDIT_TAG_ATR = 'tag/edit atribute',
     ELM = 'select element to add',
-    PREV = 'halaman preview'
+    PREV = 'halaman preview',
+
+    CLASS_MANAGER = 'class/class manager',
+    TAMBAH_CLASS = 'class/tambah class'
 }
 
 export enum EAction {
